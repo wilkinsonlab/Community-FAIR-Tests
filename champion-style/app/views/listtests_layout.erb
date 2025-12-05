@@ -1,0 +1,34 @@
+<!-- views/layout.erb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>FAIR Champion - List/Run Champion Tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/tests/css/styles.css"/>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <a href="/champion"><img src="/tests/champion_whitebgcrop.png" alt="FAIR Champion Logo"/></a>
+        <h2>List and Execute Champion Tests</h2>
+    </div>
+  </div>
+  <header class="header">
+    <div class="code-block">
+      <p>Generic CURL command:</p>
+      <pre>
+        curl -H "Content-type: application/json" -H "Accept: application/json" 
+        -d '{"resource_identifier": "https://exampledataset.org"}' 
+        https://tests.ostrails.eu/assess/test/fc_some_test_name
+        </pre>
+        <br/><br/>
+    </div>
+  </header>
+
+
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>

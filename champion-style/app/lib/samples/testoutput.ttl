@@ -1,0 +1,45 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix ftr: <https://w3id.org/ftr#> .
+@prefix sio: <http://semanticscience.org/resource/> .
+@prefix schema: <http://schema.org/> .
+
+<urn:fairtestoutput:b7a4ffd8-0049-4833-90db-62aded0d5ff6>
+    dct:description "OUTPUT OF Tests metadata GUID for the ability to implement authentication and authorization in its resolution protocol.  Currently passes InChI Keys, DOIs, Handles, and URLs.  Recognition of other identifiers will be added upon request by the community."@en ;
+    dct:identifier <urn:fairtestoutput:b7a4ffd8-0049-4833-90db-62aded0d5ff6> ;
+    dct:license <https://creativecommons.org/publicdomain/zero/1.0/> ;
+    dct:title "FAIR Champion: Metadata Authorization OUTPUT"@en ;
+    a ftr:TestResult ;
+    prov:generatedAtTime "2025-01-14T10:55:16+01:00"^^xsd:date ;
+    prov:wasDerivedFrom <urn:ostrails:fairtestentity:87bea794-5f6b-47c6-a507-d7619348a105> ;
+    ftr:completion "100"^^xsd:int ;
+    ftr:log """INFO: TEST VERSION 'Hvst-1.4.2:Tst-2.0.0'
+PASS:  The GUID of the metadata is a uri, which is known to be allow authentication/authorization."""@en ;
+    ftr:outputFromTest <urn:ostrails:fairtestsoftware:adebdd40-3054-45fe-a6a0-f191c42dadf0> ;
+    ftr:status "pass"@en ;
+    ftr:summary ""@en .
+
+<urn:ostrails:fairtestentity:87bea794-5f6b-47c6-a507-d7619348a105>
+    schema:identifier "https://go-fair.org" ;
+    schema:url <https://go-fair.org> ;
+    a prov:Entity .
+
+<urn:ostrails:fairtestsoftware:adebdd40-3054-45fe-a6a0-f191c42dadf0>
+    dct:description "Tests metadata GUID for the ability to implement authentication and authorization in its resolution protocol.  Currently passes InChI Keys, DOIs, Handles, and URLs.  Recognition of other identifiers will be added upon request by the community."@en ;
+    dct:identifier "https://tests.ostrails.eu/tests/fc_metadata_authorization" ;
+    dct:license <https://github.com/wilkinsonlab/FAIR-Core-Tests/blob/main/LICENSE> ;
+    dct:title "FAIR Champion: Metadata Authorization"@en ;
+    sio:SIO_000233 <https://tests.ostrails.eu/tests/fc_metadata_authorization/about> ;
+    a schema:SoftwareApplication, dcat:DataService, ftr:Test ;
+    dcat:endpointDescription <https://tests.ostrails.eu/tests/fc_metadata_authorization> ;
+    dcat:endpointURL <https://tests.ostrails.eu/tests/fc_metadata_authorization> ;
+    dcat:version "Hvst-1.4.2:Tst-2.0.0"@en .
+
+<urn:ostrails:testexecutionactivity:e55372b2-55ec-4400-bef0-6ad813256a21>
+    a ftr:TestExecutionActivity ;
+    prov:generated <urn:fairtestoutput:b7a4ffd8-0049-4833-90db-62aded0d5ff6> ;
+    prov:used <urn:ostrails:fairtestentity:87bea794-5f6b-47c6-a507-d7619348a105> ;
+    prov:wasAssociatedWith <urn:ostrails:fairtestsoftware:adebdd40-3054-45fe-a6a0-f191c42dadf0> .

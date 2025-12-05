@@ -1,0 +1,19 @@
+
+<% @tests.each do |t| %>
+      <% testname = t.to_s %>
+      <div class="form-card">
+        <form action="/assess/test/<%= testname %>" method="post">
+          <label for="resource_identifier_<%= testname %>"><%= testname %></label>
+          <input type="text" name="resource_identifier" id="resource_identifier_<%= testname %>" placeholder="e.g., https://example.org/dataset">
+          <div>
+            <a href="/tests/<%= testname %>/api">(<%= @labels[testname] %> Interface)</a>  
+            <a href="/tests/<%= testname %>">DCAT Metadata</a>
+          </div>
+          <input type="submit" value="Test it">
+        </form>
+      </div>
+      <br><br>
+    <% end %>
+  </div>
+</body>
+</html>

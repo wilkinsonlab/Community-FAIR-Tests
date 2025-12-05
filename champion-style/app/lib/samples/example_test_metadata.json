@@ -1,0 +1,124 @@
+[
+  {
+    "@id": "https://localhost/tests/fc_metadata_protocol/about",
+    "@type": [
+      "http://www.w3.org/ns/dcat#DataService"
+    ],
+    "http://purl.org/dc/terms/identifier": [
+      {
+        "@id": "https://localhost/tests/fc_metadata_protocol"
+      }
+    ],
+    "http://purl.org/dc/terms/title": [
+      {
+        "@language": "en",
+        "@value": ""
+      }
+    ],
+    "http://purl.org/dc/terms/description": [
+      {
+        "@language": "en",
+        "@value": "Metadata may be retrieved by an open and free protocol.  Tests metadata GUID for its resolution protocol.  Currently passes InChI Keys, DOIs, Handles, and URLs.  Recognition of other identifiers will be added upon request by the community."
+      }
+    ],
+    "http://www.w3.org/ns/dcat#keyword": [
+      {
+        "@language": "en",
+        "@value": "FAIR Assessment"
+      },
+      {
+        "@language": "en",
+        "@value": "FAIR Principles"
+      }
+    ],
+    "http://purl.org/dc/terms/creator": [
+      {
+        "@id": "https://orcid.org/0000-0001-6960-357X"
+      }
+    ],
+    "https://w3id.org/ftr#indicator": [
+      {
+        "@id": "https://w3id.org/fair/principles/latest/A1.1"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#endpointDescription": [
+      {
+        "@id": "https://localhost/tests/fc_metadata_protocol"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#endpointURL": [
+      {
+        "@id": "https://localhost/tests/fc_metadata_protocol"
+      }
+    ],
+    "http://purl.org/dc/terms/type": [
+      {
+        "@id": "http://edamontology.org/operation_2428"
+      }
+    ],
+    "http://purl.org/dc/terms/license": [
+      {
+        "@id": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#theme": [
+      {
+        "@id": "http://edamontology.org/topic_4012"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#version": [
+      {
+        "@language": "en",
+        "@value": ""
+      }
+    ],
+    "http://semanticscience.org/ontology/SIO_000223": [
+      {
+        "@id": "https://localhost/tests/fc_metadata_protocol"
+      }
+    ],
+    "http://www.w3.org/ns/dcat#contactPoint": [
+      {
+        "@id": "urn:fairchampion:testmetadata:individualfb91ebc2-7f66-4ac2-97aa-ef6141345988"
+      },
+      {
+        "@id": "urn:fairchampion:testmetadata:org:2bb9ef67-b85b-4d71-8b91-25a72939a4fa"
+      }
+    ]
+  },
+  {
+    "@id": "urn:fairchampion:testmetadata:individualfb91ebc2-7f66-4ac2-97aa-ef6141345988",
+    "@type": [
+      "http://www.w3.org/2006/vcard/ns#Individual"
+    ],
+    "http://www.w3.org/2006/vcard/ns#fn": [
+      {
+        "@language": "en",
+        "@value": "Mark D Wilkinson"
+      }
+    ],
+    "http://www.w3.org/2006/vcard/ns#email": [
+      {
+        "@language": "en",
+        "@value": "mark.wilkinson@upm.es"
+      }
+    ]
+  },
+  {
+    "@id": "urn:fairchampion:testmetadata:org:2bb9ef67-b85b-4d71-8b91-25a72939a4fa",
+    "@type": [
+      "http://www.w3.org/2006/vcard/ns#Organization"
+    ],
+    "http://www.w3.org/2006/vcard/ns#organization-name": [
+      {
+        "@language": "en",
+        "@value": "OSTrails Project"
+      }
+    ],
+    "http://www.w3.org/2006/vcard/ns#url": [
+      {
+        "@id": "https://ostrails.eu/"
+      }
+    ]
+  }
+]

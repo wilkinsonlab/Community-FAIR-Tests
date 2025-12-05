@@ -1,0 +1,11 @@
+[extruct]
+command="LD_LIBRARY_PATH='/usr/lib/x86_64-linux-gnu/' /usr/local/bin/extruct"
+
+[bing]
+accessKey="YOUR KEY HERE"
+
+[rdf]
+command="/home/osboxes/.rvm/gems/ruby-3.0.0/bin/rdf"
+
+[tika]
+command="http://tika:9998/meta"
