@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = 'Community FAIR Tests for the OS Trails project'
   spec.homepage = 'https://github.com/wilkinsonlab/Community-FAIR-Tests'
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 3.3'
+  spec.required_ruby_version = '>= 3.2'
 
   spec.metadata['allowed_push_host'] = 'https://example.com'
 

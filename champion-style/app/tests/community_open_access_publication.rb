@@ -1,15 +1,13 @@
 require_relative File.dirname(__FILE__) + '/../lib/harvester.rb'
 
-
 class FAIRTest
-
   def self.community_open_access_publication_meta
     {
-    testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.1',
-    testname: "Publication is Open-Access",
-    testid: "community_open_access_publication",
-    description: "Test a DOI against OpenAlex to determine if the publication is open-access",    
-      metric: 'https://fairsharing.org/6449',  # TODO UPDATE TO DOI WHEN rEADY
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.1',
+      testname: 'Publication is Open-Access',
+      testid: 'community_open_access_publication',
+      description: 'Test a DOI against OpenAlex to determine if the publication is open-access',
+      metric: 'https://fairsharing.org/6449', # TODO: UPDATE TO DOI WHEN rEADY
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
@@ -34,11 +32,11 @@ class FAIRTest
     FAIRChampion::Output.clear_comments
 
     output = FAIRChampion::Output.new(
-      testedGUID: guid, 
+      testedGUID: guid,
       meta: community_open_access_publication_meta
-      )
+    )
 
-    output.comments << "INFO: TEST VERSION '#{self.community_open_access_publication_meta[:testversion]}'\n"
+    output.comments << "INFO: TEST VERSION '#{community_open_access_publication_meta[:testversion]}'\n"
 
     meta = FAIRChampion::MetadataObject.new
     metadata = FAIRChampion::Harvester.openalex_doi(guid, meta) # this is where the magic happens!
@@ -46,9 +44,9 @@ class FAIRTest
     metadata.comments.each do |c|
       output.comments << c
     end
-warn "metadata guidtype #{metadata.guidtype}"
+    warn "metadata guidtype #{metadata.guidtype}"
     if metadata.guidtype == 'unknown'
-      output.score = "indeterminate"
+      output.score = 'indeterminate'
       output.comments << "INDETERMINATE: The identifier #{guid} did not match any known identification system.\n"
       return output.createEvaluationResponse
     end
@@ -76,10 +74,7 @@ warn "metadata guidtype #{metadata.guidtype}"
   end
 
   def self.community_open_access_publication_about
-    dcat = ChampionDCAT::DCAT_Record.new(meta: fcommunity_open_access_publication_meta)
+    dcat = ChampionDCAT::DCAT_Record.new(meta: community_open_access_publication_meta)
     dcat.get_dcat
   end
 end
-
-
-

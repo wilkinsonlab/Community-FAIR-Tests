@@ -11,11 +11,10 @@ module FAIRChampion
 
     def_delegators FAIRChampion::Output, :triplify
 
-    attr_accessor :score, :testedGUID, :testid, :uniqueid, :name, :description, :license, :dt, :metric, 
+    attr_accessor :score, :testedGUID, :testid, :uniqueid, :name, :description, :license, :dt, :metric,
                   :version, :summary, :completeness, :comments, :guidance
 
-    
-    OPUTPUT_VERSION = "1.1.1"
+    OPUTPUT_VERSION = '1.1.1'
 
     def initialize(testedGUID:, meta:)
       @score = 'indeterminate'
@@ -38,14 +37,14 @@ module FAIRChampion
       g = RDF::Graph.new
       schema = RDF::Vocab::SCHEMA
       xsd = RDF::Vocab::XSD
-      dct = RDF::Vocab::DC 
+      dct = RDF::Vocab::DC
       prov = RDF::Vocab::PROV
       dcat = RDF::Vocab::DCAT
       dqv = RDF::Vocabulary.new('https://www.w3.org/TR/vocab-dqv/')
       ftr = RDF::Vocabulary.new('https://w3id.org/ftr#')
       sio = RDF::Vocabulary.new('http://semanticscience.org/resource/')
       cwmo = RDF::Vocabulary.new('http://purl.org/cwmo/#')
-      
+
       add_newline_to_comments
 
       if summary =~ /^Summary$/
@@ -75,8 +74,7 @@ module FAIRChampion
       triplify(uniqueid, ftr.log, comments.join, g)
       triplify(uniqueid, ftr.completion, completeness, g)
 
-
-      triplify(uniqueid, ftr.outputFromTest, softwareid, g)      
+      triplify(uniqueid, ftr.outputFromTest, softwareid, g)
       triplify(softwareid, RDF.type, ftr.Test, g)
       triplify(softwareid, RDF.type, schema.SoftwareApplication, g)
       triplify(softwareid, RDF.type, dcat.DataService, g)
@@ -88,9 +86,9 @@ module FAIRChampion
                "https://tests.ostrails.eu/tests/#{testid}", g) # returns yaml
       triplify(softwareid, dcat.endpointURL,
                "https://tests.ostrails.eu/tests/#{testid}", g) # POST to execute
-      triplify(softwareid, "http://www.w3.org/ns/dcat#version", "#{version} OutputVersion:#{OPUTPUT_VERSION}" , g)  # dcat namespace in library has no version - dcat 2 not 3
+      triplify(softwareid, 'http://www.w3.org/ns/dcat#version', "#{version} OutputVersion:#{OPUTPUT_VERSION}", g) # dcat namespace in library has no version - dcat 2 not 3
       triplify(softwareid, dct.license, 'https://github.com/wilkinsonlab/FAIR-Core-Tests/blob/main/LICENSE', g)
-      triplify(softwareid, sio["SIO_000233"], metric, g)  # implementation of 
+      triplify(softwareid, sio['SIO_000233'], metric, g) # implementation of
 
       # deprecated after release 1.0
       # triplify(uniqueid, prov.wasDerivedFrom, tid, g)
@@ -98,52 +96,49 @@ module FAIRChampion
       # triplify(tid, RDF.type, prov.Entity, g)
       # triplify(tid, schema.identifier, testedGUID, g, xsd.string)
       # triplify(tid, schema.url, testedGUID, g) if testedGUID =~ %r{^https?://}
-      begin
-        triplify(uniqueid, ftr.assessmentTarget, testedGUID, g)
-        triplify(executionid, prov.used, testedGUID, g)
-        triplify(testedGUID, RDF.type, prov.Entity, g)
-        triplify(testedGUID, dct.identifier, testedGUID, g)
-      rescue
-        triplify(uniqueid, ftr.assessmentTarget, "not a URI", g)
-        triplify(executionid, prov.used, "not a URI", g)
-        score = "fail"
-      end
+      # begin
+      entityid = 'urn:ostrails:testexecutionactivity:guidentity:' + SecureRandom.uuid
 
-      unless score == "pass"
+      triplify(uniqueid, ftr.assessmentTarget, "#{testedGUID}", g, 'xsd:string')
+      triplify(executionid, prov.used, entityid, g)
+      triplify(entityid, RDF.type, prov.Entity, g)
+      triplify(entityid, dct.identifier, testedGUID, g, 'xsd:string')
+      # rescue StandardError
+      #   triplify(uniqueid, ftr.assessmentTarget, 'not a URI', g)
+      #   triplify(executionid, prov.used, 'not a URI', g)
+      #   score = 'fail'
+      # end
+
+      unless score == 'pass'
         guidance.each do |advice, label|
           adviceid = 'urn:ostrails:testexecutionactivity:advice:' + SecureRandom.uuid
           triplify(uniqueid, ftr.suggestion, adviceid, g)
           triplify(adviceid, RDF.type, ftr.GuidanceContext, g)
           triplify(adviceid, RDFS.label, label, g)
           triplify(adviceid, dct.description, label, g)
-          triplify(adviceid, sio["SIO_000339"], RDF::URI.new(advice), g)
-        end       
+          triplify(adviceid, sio['SIO_000339'], RDF::URI.new(advice), g)
+        end
       end
 
-
-
-      
-#      g.dump(:jsonld)
+      #      g.dump(:jsonld)
       w = RDF::Writer.for(:jsonld)
       w.dump(g, nil, prefixes: {
-        xsd: RDF::Vocab::XSD, 
-        prov: RDF::Vocab::PROV,
-        dct: RDF::Vocab::DC,
-        dcat: RDF::Vocab::DCAT,
-        ftr: ftr,
-        sio: sio,
-        schema: schema
-      })
+               xsd: RDF::Vocab::XSD,
+               prov: RDF::Vocab::PROV,
+               dct: RDF::Vocab::DC,
+               dcat: RDF::Vocab::DCAT,
+               ftr: ftr,
+               sio: sio,
+               schema: schema
+             })
     end
 
     # can be called as FAIRChampion::Output.comments << "newcomment"
-    def self.comments
-      @comments
+    class << self
+      attr_reader :comments
     end
 
-    def comments
-      @comments
-    end
+    attr_reader :comments
 
     def self.clear_comments
       @comments = []
@@ -161,8 +156,8 @@ module FAIRChampion
     def self.triplify(s, p, o, repo, datatype = nil)
       begin
         # warn "S-P-O #{s.to_s} #{p.to_s} #{o.to_s}"
-      rescue
-        warn "input to #triplify seems totally invalid!"
+      rescue StandardError
+        warn 'input to #triplify seems totally invalid!'
         return false
       end
       s = s.strip if s.instance_of?(String)
@@ -171,12 +166,10 @@ module FAIRChampion
 
       unless s.respond_to?('uri')
 
-        if s.to_s =~ %r{^\w+:/?/?[^\s]+}
-          s = RDF::URI.new(s.to_s)
-        else
-          raise "Subject #{s} must be a URI-compatible thingy"
+        raise "Subject #{s} must be a URI-compatible thingy" unless s.to_s =~ %r{^\w+:/?/?[^\s]+}
 
-        end
+        s = RDF::URI.new(s.to_s)
+
       end
 
       unless p.respond_to?('uri')
@@ -190,15 +183,15 @@ module FAIRChampion
 
       unless o.respond_to?('uri?')
         o = if datatype
-          warn "DATATYPE #{datatype}"
+              warn "DATATYPE #{datatype}"
               RDF::Literal.new(o.to_s, datatype: datatype)
             elsif o.to_s =~ %r{\A\w+:/?/?\w[^\s]+}
               RDF::URI.new(o.to_s)
             elsif o.to_s =~ /^\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d/
               RDF::Literal.new(o.to_s, datatype: RDF::XSD.date)
-            elsif o.to_s =~ /^[+-]?\d+\.\d+/ && o.to_s !~ /[^\+\-\d\.]/ # has to only be digits
+            elsif o.to_s =~ /^[+-]?\d+\.\d+/ && o.to_s !~ /[^+\-\d.]/ # has to only be digits
               RDF::Literal.new(o.to_s, datatype: RDF::XSD.float)
-            elsif o.to_s =~ /^[+-]?[0-9]+$/ && o.to_s !~ /[^\+\-\d\.]/ # has to only be digits
+            elsif o.to_s =~ /^[+-]?[0-9]+$/ && o.to_s !~ /[^+\-\d.]/ # has to only be digits
               RDF::Literal.new(o.to_s, datatype: RDF::XSD.int)
             else
               RDF::Literal.new(o.to_s, language: :en)

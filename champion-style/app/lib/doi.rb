@@ -1,6 +1,5 @@
 module FAIRChampion
   class Harvester
-
     def self.resolve_doi(guid, meta)
       guid.downcase!
       type, url = Harvester.convertToURL(guid)
@@ -24,6 +23,79 @@ module FAIRChampion
       end
 
       meta
+    end
+
+    # this should only be called AFTER the general resolve above
+    def self.resolve_doi_to_registration_agency(doi, meta)
+      doi.downcase!
+      doi.gsub!(%r{https?://[^/+]/}, '')
+      doi.strip!
+      url = "https://doi.org/doiRA/#{doi}"
+      meta.comments << "INFO:  Finding DOI registration agency.\n"
+
+      meta.comments << "INFO:  Attempting to resolve #{url} using HTTP Headers {\"Accept\"=>\"*/*\"}.\n"
+      _headers, body = FAIRChampion::Harvester.fetch(guid: url, headers: FAIRChampion::Utils::AcceptDefaultHeader)
+      if body
+        meta.comments << "INFO:  parsing agency from response\n"
+        json = JSON.parse(body)
+        json.dig(0, 'RA')
+      else
+        meta.comments << "WARN:  doiRA did not return JSON.  Aborting.\n"
+        false
+      end
+    end
+
+    def self.get_funding_information_from_crossref(doi, meta)
+      # https://api.crossref.org/works/10.1063/5.0095229
+      doi.downcase!
+      doi.gsub!(%r{https?://[^/+]/}, '')
+      doi.strip!
+      url = "https://api.crossref.org/works/#{doi}"
+      meta.comments << "INFO:  Looking for funding information\n"
+      _headers, body = FAIRChampion::Harvester.fetch(guid: url, headers: FAIRChampion::Utils::AcceptDefaultHeader)
+      # warn "headers #{_headers} #{url}"
+      # abort
+      return nil unless body
+
+      meta.comments << "INFO:  parsing funding info from response\n"
+      json = JSON.parse(body)
+      funding_refs = json.dig('message', 'funder')
+      first_funding = funding_refs&.dig(0) # safe navigation + dig
+
+      if first_funding
+        meta.comments << "INFO:  funding info block found\n"
+        first_funding
+      else
+        meta.comments << "WARN:  no funding information block found\n"
+        false
+      end
+    end
+
+    def self.get_funding_information_from_datacite(doi, meta)
+      # https://api.datacite.org/dois/10.15151/ESRF-ES-2303075148
+      doi.downcase!
+      doi.gsub!(%r{https?://[^/+]/}, '')
+      doi.strip!
+      url = "https://api.datacite.org/dois/#{doi}"
+      meta.comments << "INFO:  Looking for funding information\n"
+      _headers, body = FAIRChampion::Harvester.fetch(guid: url, headers: FAIRChampion::Utils::AcceptDefaultHeader)
+      return unless body
+
+      # warn body
+
+      meta.comments << "INFO:  parsing funding info from response\n"
+      data = JSON.parse(body, symbolize_names: true)
+
+      funding_refs = data.dig(:data, :attributes, :fundingReferences)
+      first_funding = funding_refs&.dig(0) # safe navigation + dig
+
+      if first_funding
+        meta.comments << "INFO:  funding info block found\n"
+        first_funding
+      else
+        meta.comments << "WARN:  no funding information block found\n"
+        false
+      end
     end
   end
 end

@@ -1,4 +1,4 @@
-require 'json'
+require 'json' # ensure json stdlib is loaded
 require 'yaml'
 require 'erb'
 
@@ -12,10 +12,10 @@ def set_routes(classes: [])
     response.body = JSON.dump(Swagger::Blocks.build_root_json(classes))
   end
 
-  get '/commiunity-tests' do
-    redirect '/community-tests/'
-  end
-  get '/community-tests/' do
+  # get '/community-tests' do
+  #   redirect '/community-tests/'
+  # end
+  get %r{/community-tests/?} do
     ts = Dir["#{File.dirname(__FILE__)}/../tests/*.rb"]
     @tests = ts.map { |t| t.match(%r{.*/(\S+)\.rb$})[1] } # This is just the final field in the URL
     @labels = FAIRChampion::Harvester.get_tests_metrics(tests: @tests) # the local URL is built in this routine, and called
@@ -44,27 +44,20 @@ def set_routes(classes: [])
     warn "now testing #{guid}"
     # begin
     @result = FAIRTest.send(id, guid: guid) # @result is a json STRING!
-    # rescue StandardError
-    #  @result = '{}'
-    # end
-    # warn @result.class
-    request.accept.each do |type|
-      case type.to_s
-      when 'text/html', 'application/xhtml+xml'
-        content_type :html
-        data = JSON.parse(@result)
-        @test_execution = data['@graph'].find { |g| g['@type'] == 'ftr:TestExecutionActivity' }
-        @test = data['@graph'].find { |g| g['@id'] == @test_execution['prov:wasAssociatedWith']['@id'] }
-        @metric_implementation = @test['sio:SIO_000233'] # Extract SIO_000233
-        @test_result = data['@graph'].find { |g| g['@id'] == @test_execution['prov:generated']['@id'] }
-        @result_value = @test_result['prov:value']['@value'] # Extract pass/fail
-        halt erb :testresult
-      when 'text/json', 'application/json', 'application/ld+json'
-        content_type :json
-        halt @result
-      else
-        warn "type is #{type}"
-      end
+
+    if request.accept?('text/html') || request.accept?('application/xhtml+xml')
+      content_type :html
+      data = JSON.parse(@result)
+      @test_execution = data['@graph'].find { |g| g['@type'] == 'ftr:TestExecutionActivity' }
+      @test = data['@graph'].find { |g| g['@id'] == @test_execution['prov:wasAssociatedWith']['@id'] }
+      @metric_implementation = @test['sio:SIO_000233'] # Extract SIO_000233
+      @test_result = data['@graph'].find { |g| g['@type'] == 'ftr:TestResult' }
+      @result_value = @test_result['prov:value']['@value'] # Extract pass/fail
+      halt erb :testresult
+    else
+      # Assume JSON/LD — most permissive path
+      content_type 'application/ld+json'
+      halt @result
     end
     error 406
   end
@@ -75,9 +68,11 @@ def set_routes(classes: [])
   # ============================= GET ----
 
   get '/community-tests/:id' do # returns DCAT
+    warn "get '/community-tests/:id'"
     id = params[:id]
     idabout = "#{id}_about"
     begin
+      warn "get #{idabout}"
       graph = FAIRTest.send(idabout)
     rescue StandardError
       halt 404, { 'error' => "Invalid test ID: #{params[:id]}" }.to_json
@@ -114,21 +109,18 @@ def set_routes(classes: [])
   end
 end
 
+# get '/community-tests/fdpindex_tests/' do
+#   @testobjects = FAIRChampion::Index.retrieve_tests_from_index
+#   @labels = FAIRChampion::Index.get_metrics_labels_for_tests(tests: @testobjects)
+#   halt erb :listalltests, layout: :listtests_layout
+# end
 
+# get '/community-tests/new' do
+#   halt erb :newtest, layout: :newtest_layout
+# end
 
-  # get '/community-tests/fdpindex_tests/' do
-  #   @testobjects = FAIRChampion::Index.retrieve_tests_from_index
-  #   @labels = FAIRChampion::Index.get_metrics_labels_for_tests(tests: @testobjects)
-  #   halt erb :listalltests, layout: :listtests_layout
-  # end
-
-  # get '/community-tests/new' do
-  #   halt erb :newtest, layout: :newtest_layout
-  # end
-
-  # post '/community-tests/new' do
-  #   test_uri = params['test_uri']
-  #   @result = FAIRChampion::Tests.register_test(test_uri: test_uri)
-  #   halt erb :newtest_output, layout: :newtest_layout
-  # end
-
+# post '/community-tests/new' do
+#   test_uri = params['test_uri']
+#   @result = FAIRChampion::Tests.register_test(test_uri: test_uri)
+#   halt erb :newtest_output, layout: :newtest_layout
+# end

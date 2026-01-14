@@ -19,7 +19,6 @@ require 'rest-client'
 require 'cgi'
 require 'digest'
 require 'open3'
-require 'metainspector'
 require 'rdf/xsd'
 require 'require_all'
 # require 'pry'
@@ -119,9 +118,9 @@ module FAIRChampion
       # warn body
       # warn hash.inspect
       # warn hash.class
-      
+
       meta.hash.merge!(hash)
-#      warn meta.hash
+      #      warn meta.hash
       meta.hash
     end
 
@@ -247,21 +246,65 @@ module FAIRChampion
     end
 
     def self.parse_link_body_headers(url, body)
-      m = MetaInspector.new(url, document: body)
-      # accept any alternate that is in structured data format
-      ls = m.head_links.select do |l|
-        l[:rel] == 'alternate' and
-          [FAIRChampion::Utils::RDF_FORMATS.values,
-           FAIRChampion::Utils::XML_FORMATS.values,
-           FAIRChampion::Utils::JSON_FORMATS.values].flatten
-            .include?(l[:type])
+      # Parse the HTML body (Nokogiri is tolerant of malformed HTML)
+      doc = Nokogiri::HTML(body)
+
+      # Focus on <link> tags inside <head> (MetaInspector's head_links equivalent)
+      # We use css selector for simplicity and readability
+      link_nodes = doc.css('head link[rel="alternate"][type]') # only those with rel=alternate AND type attr
+
+      # Your format lists – assuming these are constants/hashes like:
+      # FAIRChampion::Utils::RDF_FORMATS  => { jsonld: "application/ld+json", ... }
+      # We flatten them once for efficiency
+      allowed_types = [
+        FAIRChampion::Utils::RDF_FORMATS.values,
+        FAIRChampion::Utils::XML_FORMATS.values,
+        FAIRChampion::Utils::JSON_FORMATS.values
+      ].flatten.uniq # uniq to avoid duplicates if any overlap
+
+      # Filter and extract hrefs
+      urls = link_nodes.filter_map do |link|
+        type = link['type']&.strip
+        next unless type && allowed_types.include?(type)
+
+        href = link['href']&.strip
+        href if href && !href.empty?
       end
-      # ls is an array of elements that look like this: [{:rel=>"alternate", :type=>"application/ld+json", :href=>"http://scidata.vitk.lv/dataset/303.jsonld"}]
-      urls = ls.map { |l| l[:href] }
-      urls.compact
+
+      # Optional: make relative URLs absolute (MetaInspector usually does this)
+      base_uri = begin
+        URI.parse(url)
+      rescue StandardError
+        nil
+      end
+      if base_uri
+        urls.map! do |href|
+          URI.join(base_uri, href).to_s
+        rescue StandardError
+          href
+        end
+      end
+
       warn "\n\nGOT BODY LINKS #{urls}\n\n"
+
       urls
     end
+    # def self.parse_link_body_headers(url, body)
+    #   m = MetaInspector.new(url, document: body)
+    #   # accept any alternate that is in structured data format
+    #   ls = m.head_links.select do |l|
+    #     l[:rel] == 'alternate' and
+    #       [FAIRChampion::Utils::RDF_FORMATS.values,
+    #        FAIRChampion::Utils::XML_FORMATS.values,
+    #        FAIRChampion::Utils::JSON_FORMATS.values].flatten
+    #         .include?(l[:type])
+    #   end
+    #   # ls is an array of elements that look like this: [{:rel=>"alternate", :type=>"application/ld+json", :href=>"http://scidata.vitk.lv/dataset/303.jsonld"}]
+    #   urls = ls.map { |l| l[:href] }
+    #   urls.compact
+    #   warn "\n\nGOT BODY LINKS #{urls}\n\n"
+    #   urls
+    # end
 
     def self.deep_dive_values(myHash, value = nil, vals = [])
       myHash.each_pair do |_k, v|
@@ -298,7 +341,7 @@ module FAIRChampion
         warn "\n\nSTRANGE - headers had no content-type\n\n"
         return nil, nil
       end
-      type.match(%r{([\w\+\.]+/[\w\+\.]+):?;?}im)
+      type.match(%r{([\w+.]+/[\w+.]+):?;?}im)
       type = ::Regexp.last_match(1)
       # $stderr.puts "\n\nsearching for #{type}\n\n"
 
@@ -326,7 +369,7 @@ module FAIRChampion
 
       meta.finalURI |= [finalURI] if meta && finalURI
 
-      warn meta.finalURI.inspect
+      warn meta.finalURI.inspect if meta
       if head and body
         warn 'Retrieved from cache, returning data to code'
         return [head, body]
@@ -451,12 +494,13 @@ module FAIRChampion
     # in principle, we cojuld return a more complex object, but all I need now is the label
     def self.get_tests_metrics(tests:)
       base_url = ENV['TEST_BASE_URL'] || 'http://localhost:8282' # Default to local server
+      test_path = ENV['TEST_PATH'] || 'community-tests' # Default to local server
       labels = {}
       tests.each do |testid|
-        warn "getting dcat for #{testid}"
+        warn "getting dcat for #{testid}    #{base_url}/#{test_path}/#{testid}"
         dcat = RestClient::Request.execute({
                                              method: :get,
-                                             url: "#{base_url}/tests/#{testid}",
+                                             url: "#{base_url}/#{test_path}/#{testid}",
                                              headers: { 'Accept' => 'application/json' }
                                            }).body
         parseddcat = JSON.parse(dcat)

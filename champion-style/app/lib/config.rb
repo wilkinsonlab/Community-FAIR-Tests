@@ -16,7 +16,6 @@ module FAIRChampion
     # end
     FAIRChampion::Utils::ExtructCommand = extruct_command
 
-
     rdf_command = 'rdf'
     if config['rdf'] && config['rdf']['command'] && !config['rdf']['command'].empty?
       rdf_command = config['rdf']['command']
@@ -38,6 +37,8 @@ module FAIRChampion
 
     FAIRChampion::Utils::AcceptHeader = { 'Accept' => 'text/turtle, application/ld+json, application/rdf+xml, text/xhtml+xml, application/n3, application/rdf+n3, application/turtle, application/x-turtle, text/n3, text/turtle, text/rdf+n3, text/rdf+turtle, application/n-triples' }
 
+    FAIRChampion::Utils::AcceptDefaultHeader = { 'Accept' => '*/*' }
+
     FAIRChampion::Utils::TEXT_FORMATS = {
       'text' => ['text/plain']
     }
@@ -45,8 +46,8 @@ module FAIRChampion
     FAIRChampion::Utils::RDF_FORMATS = {
       'jsonld' => ['application/ld+json', 'application/vnd.schemaorg.ld+json'], # NEW FOR DATACITE
       'turtle' => ['text/turtle', 'application/n3', 'application/rdf+n3',
-                  'application/turtle', 'application/x-turtle', 'text/n3', 'text/turtle',
-                  'text/rdf+n3', 'text/rdf+turtle'],
+                   'application/turtle', 'application/x-turtle', 'text/n3', 'text/turtle',
+                   'text/rdf+n3', 'text/rdf+turtle'],
       # 'rdfa'    => ['text/xhtml+xml', 'application/xhtml+xml'],
       'rdfxml' => ['application/rdf+xml'],
       'triples' => ['application/n-triples', 'application/n-quads', 'application/trig']
@@ -109,19 +110,16 @@ module FAIRChampion
     ]
 
     FAIRChampion::Utils::GUID_TYPES = { 'inchi' => /^\w{14}-\w{10}-\w$/,
-                          'doi' => %r{^10.\d{4,9}/[-._;()/:A-Z0-9]+$}i,
-                          'handle1' => %r{^[^/]+/[^/]+$}i,
-                          'handle2' => %r{^\d{4,5}/[-._;()/:A-Z0-9]+$}i, # legacy style  12345/AGB47A
-                          'uri' => %r{^\w+:/?/?[^\s]+$} }
-
-
-
+                                        'doi' => %r{^10.\d{4,9}/[-._;()/:A-Z0-9]+$}i,
+                                        'handle1' => %r{^[^/]+/[^/]+$}i,
+                                        'handle2' => %r{^\d{4,5}/[-._;()/:A-Z0-9]+$}i, # legacy style  12345/AGB47A
+                                        'uri' => %r{^\w+:/?/?[^\s]+$} }
 
     class Config
-      attr_accessor :fairsharing_key_location, 
-      def initialize(fairsharing_key_location: "")
-        @fairsharing_key_location = fairsharing_key_location
-      end
+      attr_accessor :fairsharing_key_location,
+                    def initialize(fairsharing_key_location: '')
+                      @fairsharing_key_location = fairsharing_key_location
+                    end
 
       def fairsharing_key
         @fairsharing_key_location
