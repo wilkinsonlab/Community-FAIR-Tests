@@ -179,13 +179,61 @@ module FAIRChampion
       data = JSON.parse(body)
 
       auths = data.dig('data', 'attributes', 'creators')
-      auths.each do |auth|
+      auths&.each do |auth|
         if auth['affiliation']
           meta.comments << "INFO:  At least one author has affiliation information\n"
           return true
         end
       end
       meta.comments << "WARN:  no authors had affiliation information\n"
+      false
+    end
+
+    def self.check_license_information_from_datacite(doi, meta)
+      # https://api.datacite.org/dois/10.15151/ESRF-ES-2303075148
+      doi.downcase!
+      doi.gsub!(%r{https?://[^/+]/}, '')
+      doi.strip!
+      url = "https://api.datacite.org/dois/#{doi}"
+      meta.comments << "INFO:  Looking for license information\n"
+      _headers, body = FAIRChampion::Harvester.fetch(guid: url, headers: FAIRChampion::Utils::AcceptDefaultHeader)
+      return false unless body
+
+      # warn body
+
+      meta.comments << "INFO:  parsing license info from response\n"
+      data = JSON.parse(body)
+
+      rights = data.dig('data', 'attributes', 'rightsList') # may return empty list - for a fail
+      if rights&.first
+        meta.comments << "INFO:  license information found\n"
+        return true
+      end
+      meta.comments << "WARN:  no license information found\n"
+      false
+    end
+
+    def self.check_license_information_from_crossref(doi, meta)
+      # https://api.crossref.org/works/10.1063/5.0095229
+      doi.downcase!
+      doi.gsub!(%r{https?://[^/+]/}, '')
+      doi.strip!
+      url = "https://api.crossref.org/works/#{doi}"
+      meta.comments << "INFO:  Looking for license information\n"
+      _headers, body = FAIRChampion::Harvester.fetch(guid: url, headers: FAIRChampion::Utils::AcceptDefaultHeader)
+      # warn "headers #{_headers} #{url}"
+      # abort
+      return false unless body
+
+      # normal author
+      meta.comments << "INFO:  parsing license info from response\n"
+      json = JSON.parse(body)
+      lics = json.dig('message', 'license')
+      if lics&.first
+        meta.comments << "INFO:  found license information\n"
+        return true
+      end
+      meta.comments << "WARN:  no licsense information found\n"
       false
     end
   end
