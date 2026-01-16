@@ -4,9 +4,9 @@ class FAIRTest
   def self.community_open_access_publication_meta
     {
       testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.1',
-      testname: 'Publication is Open-Access',
+      testname: 'Resource is Open-Access output',
       testid: 'community_open_access_publication',
-      description: 'Test a DOI against OpenAlex to determine if the publication is open-access',
+      description: 'Test a DOI against OpenAlex to determine if the resource output is open-access',
       metric: 'https://fairsharing.org/6449', # TODO: UPDATE TO DOI WHEN rEADY
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
