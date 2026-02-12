@@ -7,7 +7,7 @@ class FAIRTest
       testname: 'Metadata includes author affiliation',
       testid: 'community_metadata_includes_author_affiliation',
       description: 'Use Crossref and Datacite APIs to scan a metadata record for author affiliation. Also check landing page for citation_author_institution meta property',
-      metric: 'https://fairsharing.org/7494', # TODO: UPDATE TO DOI WHEN rEADY
+      metric: 'https://w3id.org/fair-metrics/esrf/R1.2.AFF.ttl'.downcase, # TODO: UPDATE TO DOI WHEN rEADY
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',

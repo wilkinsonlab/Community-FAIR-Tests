@@ -7,7 +7,7 @@ class FAIRTest
       testname: 'Resource is Open-Access output',
       testid: 'community_open_access_publication',
       description: 'Test a DOI against OpenAlex to determine if the resource output is open-access',
-      metric: 'https://fairsharing.org/6449', # TODO: UPDATE TO DOI WHEN rEADY
+      metric: 'https://w3id.org/fair-metrics/esrf/F4.OA.DOI.ttl'.downcase, # TODO: UPDATE TO DOI WHEN rEADY
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
