@@ -6,6 +6,7 @@ require 'json/ld'
 require 'json/ld/preloaded'
 require 'rdf/trig'
 require 'rdf/raptor'
+require 'rdf/vocab'
 require 'net/http'
 require 'net/https' # for openssl
 require 'uri'
@@ -556,6 +557,7 @@ module FAIRChampion
       base_url = ENV['TEST_BASE_URL'] || 'http://localhost:8282' # Default to local server
       test_path = ENV['TEST_PATH'] || 'community-tests' # Default to local server
       labels = {}
+      landingpages = {}
       tests.each do |testid|
         warn "getting dcat for #{testid}    #{base_url}/#{test_path}/#{testid}"
         dcat = RestClient::Request.execute({
@@ -564,31 +566,31 @@ module FAIRChampion
                                              headers: { 'Accept' => 'application/json' }
                                            }).body
         parseddcat = JSON.parse(dcat)
-        jpath = JsonPath.new('[0]["http://semanticscience.org/resource/SIO_000233"][0]["@id"]')
-        fsdoi = jpath.on(parseddcat).first
-        fsdoi = fsdoi.gsub(%r{https?://doi.org/}, '') # just the doi
-        warn "final FAIRsharing DOI is #{fsdoi}"
+        jpath = JsonPath.new('[0]["http://semanticscience.org/resource/SIO_000233"][0]["@id"]') # is implementation of
+        metricurl = jpath.on(parseddcat).first
+
         begin
-          fs = RestClient::Request.execute({
-                                             method: :post,
-                                             url: 'https://api.fairsharing.org/graphql',
-                                             headers: { 'Content-type' => 'application/json',
-                                                        'X-GraphQL-Key' => ENV.fetch('FAIRSHARING_KEY', nil) },
-                                             payload: '{"query": "{fairsharingRecord(id: \"' + fsdoi + '\") { id name }}"}'
-                                           }).body
+          g = RDF::Graph.load(metricurl, format: :turtle)
         rescue StandardError => e
-          warn "FAIRSharing connection failed #{e.inspect}"
-          fs = '{}'
+          warn "DCAT Metric loading failed #{e.inspect}"
+          g = RDF::Graph.new
         end
-        parsedfs = JSON.parse(fs)
-        if parsedfs['data']
-          label = parsedfs['data']['fairsharingRecord']['name']
-          labels[testid] = label
-        else
-          labels[testid] = 'FAIRSharing label not available'
-        end
+
+        title = g.query([nil, RDF::Vocab::DC.title, nil])&.first&.object&.to_s
+        lp = g.query([nil, RDF::Vocab::DCAT.landingPage, nil])&.first&.object&.to_s
+
+        labels[testid] = if title != ''
+                           title
+                         else
+                           'Metric label not available'
+                         end
+        landingpages[testid] = if lp != ''
+                                 lp
+                               else
+                                 ''
+                               end
       end
-      labels
+      [labels, landingpages]
     end
   end # END OF Harvester CLASS
 end

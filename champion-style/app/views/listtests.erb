@@ -6,7 +6,8 @@
           <label for="resource_identifier_<%= testname %>"><%= testname %></label>
           <input type="text" name="resource_identifier" id="resource_identifier_<%= testname %>" placeholder="e.g., https://example.org/dataset">
           <div>
-            <a href="/community-tests/<%= testname %>/api">(<%= @labels[testname] %> Interface)</a>  
+            Metric: <a href="<%= @lps[testname] %>"><%= @labels[testname] %></a>&nbsp;&nbsp;
+            <a href="/community-tests/<%= testname %>/api">Interface YAML</a>  
             <a href="/community-tests/<%= testname %>">DCAT Metadata</a>
           </div>
           <input type="submit" value="Test it">
