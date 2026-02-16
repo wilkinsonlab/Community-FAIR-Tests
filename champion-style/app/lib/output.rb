@@ -138,8 +138,6 @@ module FAIRChampion
       attr_reader :comments
     end
 
-    attr_reader :comments
-
     def self.clear_comments
       @comments = []
     end
