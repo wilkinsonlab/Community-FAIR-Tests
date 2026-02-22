@@ -3,25 +3,27 @@ module ChampionDCAT
     attr_accessor :identifier, :testname, :description, :keywords, :creator,
                   :indicators, :end_desc, :end_url, :dctype, :testid, :supportedby,
                   :license, :themes, :testversion, :implementations, :isapplicablefor, :applicationarea,
-                  :organizations, :individuals, :protocol, :host, :basePath, :metric
+                  :organizations, :individuals, :protocol, :host, :basePath, :metric, :landingpage
+
     require_rel './output.rb'
 
     def initialize(meta:)
       indics = [meta[:indicators]] unless meta[:indicators].is_a? Array
       @indicators = indics
       @testid = meta[:testid]
-      @testname =  meta[:testname]
-      @metric =  meta[:metric]
+      @testname = meta[:testname]
+      @metric = meta[:metric]
       @description = meta[:description]
       @keywords = meta[:keywords]
       @keywords = [@keywords] unless @keywords.is_a? Array
       @creator =  meta[:creator]
       @end_desc = meta[:end_desc]
       @end_url = meta[:end_url]
-      @dctype = meta[:dctype] || "http://edamontology.org/operation_2428"
-      @supportedby = meta[:supportedby] || ["https://tools.ostrails.eu/champion"]
-      @applicationarea = meta[:applicationarea] || ["http://www.fairsharing.org/ontology/subject/SRAO_0000401"]
-      @isapplicablefor = meta[:isapplicablefor] || ["https://schema.org/Dataset"]
+      @landingpage = meta[:landingPage] || @end_url
+      @dctype = meta[:dctype] || 'http://edamontology.org/operation_2428'
+      @supportedby = meta[:supportedby] || ['https://tools.ostrails.eu/champion']
+      @applicationarea = meta[:applicationarea] || ['http://www.fairsharing.org/ontology/subject/SRAO_0000401']
+      @isapplicablefor = meta[:isapplicablefor] || ['https://schema.org/Dataset']
       @license = meta[:license]
       @themes = meta[:themes]
       @themes = [@themes] unless @themes.is_a? Array
@@ -31,13 +33,13 @@ module ChampionDCAT
       @protocol =  meta[:protocol]
       @host = meta[:host]
       @basePath = meta[:basePath]
-      cleanhost = @host.gsub(/\//, "")
-      cleanpath = @basePath.gsub(/\//, "")
-      endpointpath = "assess/test"
+      cleanhost = @host.gsub(%r{/}, '')
+      cleanpath = @basePath.gsub(%r{/}, '')
+      endpointpath = 'assess/test'
       @end_url = "#{protocol}://#{cleanhost}/#{endpointpath}/#{testid}"
       @end_desc = "#{protocol}://#{cleanhost}/#{cleanpath}/#{testid}/api"
       @identifier = "#{protocol}://#{cleanhost}/#{cleanpath}/#{testid}"
-#      @implementations = [@end_url]
+      #      @implementations = [@end_url]
     end
 
     def get_dcat
@@ -52,8 +54,8 @@ module ChampionDCAT
       dpv = RDF::Vocabulary.new('https://w3id.org/dpv#')
 
       g = RDF::Graph.new
-#      me = "#{identifier}/about"   # at the hackathon we decided that the test id would return the metadata
-                                    # so now there is no need for /about
+      #      me = "#{identifier}/about"   # at the hackathon we decided that the test id would return the metadata
+      # so now there is no need for /about
       me = "#{identifier}"
 
       FAIRChampion::Output.triplify(me, RDF.type, dcat.DataService, g)
@@ -91,6 +93,9 @@ module ChampionDCAT
       # API URL	dcat:endpointURL	rdfs:Resource
       FAIRChampion::Output.triplify(me, dcat.endpointURL, end_url, g)
 
+      # API URL	dcat:landingPage	rdfs:Resource
+      FAIRChampion::Output.triplify(me, dcat.landingPage, landingpage, g)
+
       # Source of the test	codemeta:hasSourceCode/schema:codeRepository/ doap:repository	schema:SoftwareSourceCode/URL
       # TODO
       # FAIRChampion::Output.FAIRChampion::Output.triplify(me, dcat.endpointDescription, end_desc, g)
@@ -115,7 +120,6 @@ module ChampionDCAT
       FAIRChampion::Output.triplify(me, sio['SIO_000233'], metric, g) # is implementation of
       FAIRChampion::Output.triplify(metric, RDF.type, dqv.Metric, g) # is implementation of
 
-
       # Responsible	dcat:contactPoint	dcat:Kind (includes Individual/Organization)
       individuals.each do |i|
         # i = {name: "Mark WAilkkinson", "email": "asmlkfj;askjf@a;lksdjfas"}
@@ -123,16 +127,12 @@ module ChampionDCAT
         cp = "urn:fairchampion:testmetadata:individual#{guid}"
         FAIRChampion::Output.triplify(me, dcat.contactPoint, cp, g)
         FAIRChampion::Output.triplify(cp, RDF.type, vcard.Individual, g)
-        if i['name']
-          FAIRChampion::Output.triplify(cp, vcard.fn, i['name'], g)
-        end
-        if i['email']
-          email = i['email'].to_s
-          unless email =~ /mailto:/
-            email = "mailto:#{email}"
-          end
-          FAIRChampion::Output.triplify(cp, vcard.hasEmail, RDF::URI.new(email), g)
-        end
+        FAIRChampion::Output.triplify(cp, vcard.fn, i['name'], g) if i['name']
+        next unless i['email']
+
+        email = i['email'].to_s
+        email = "mailto:#{email}" unless email =~ /mailto:/
+        FAIRChampion::Output.triplify(cp, vcard.hasEmail, RDF::URI.new(email), g)
       end
 
       organizations.each do |o|
@@ -146,7 +146,7 @@ module ChampionDCAT
       end
 
       supportedby.each do |tool|
-        FAIRChampion::Output.triplify(me, ftr.supportedBy, tool,  g)
+        FAIRChampion::Output.triplify(me, ftr.supportedBy, tool, g)
         FAIRChampion::Output.triplify(tool, RDF.type, schema.SoftwareApplication, g)
       end
 
@@ -156,7 +156,6 @@ module ChampionDCAT
       isapplicablefor.each do |digitalo|
         FAIRChampion::Output.triplify(me, dpv.isApplicableFor, digitalo, g)
       end
-
 
       g
     end
