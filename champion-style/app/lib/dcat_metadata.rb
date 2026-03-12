@@ -36,7 +36,12 @@ module ChampionDCAT
       cleanhost = @host.gsub(%r{/}, '')
       cleanpath = @basePath.gsub(%r{/}, '')
       endpointpath = 'assess/test'
-      @end_url = "#{protocol}://#{cleanhost}/#{endpointpath}/#{testid}"
+      # NOTE: that this has been changed compared to the core fair tests
+      # # core fair tests shoud be modified to include the cleanpath before the endpoint path
+      # and then the proxy doesn't need to be configured to recognize "assess", it can just recognize
+      # the path that is entered into basePath in the environment
+      # # TODO - fix COre Tests and the proxy on the core tests server
+      @end_url = "#{protocol}://#{cleanhost}/#{cleanpath}/#{endpointpath}/#{testid}"
       @end_desc = "#{protocol}://#{cleanhost}/#{cleanpath}/#{testid}/api"
       @identifier = "#{protocol}://#{cleanhost}/#{cleanpath}/#{testid}"
       #      @implementations = [@end_url]

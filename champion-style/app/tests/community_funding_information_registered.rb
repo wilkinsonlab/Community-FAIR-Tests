@@ -24,7 +24,7 @@ class FAIRTest
       creator: 'https://orcid.org/0000-0001-6960-357X',
       protocol: ENV.fetch('TEST_PROTOCOL', 'https'),
       host: ENV.fetch('TEST_HOST', 'localhost'),
-      basePath: ENV.fetch('TEST_PATH', '/tests')
+      basePath: ENV.fetch('TEST_PATH', '/community-tests')
     }
   end
 
@@ -102,6 +102,7 @@ class FAIRTest
   end
 
   def self.community_funding_information_registered_about
+    warn "META: #{community_funding_information_registered_meta.inspect}"
     dcat = ChampionDCAT::DCAT_Record.new(meta: community_funding_information_registered_meta)
     dcat.get_dcat
   end
