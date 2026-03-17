@@ -97,12 +97,18 @@ module FAIRChampion
       # triplify(tid, schema.identifier, testedGUID, g, xsd.string)
       # triplify(tid, schema.url, testedGUID, g) if testedGUID =~ %r{^https?://}
       # begin
-      entityid = 'urn:ostrails:testexecutionactivity:guidentity:' + SecureRandom.uuid
+      testedguidnode = 'urn:ostrails:testexecutionactivity:guidentity:' + SecureRandom.uuid
+      begin
+        triplify(uniqueid, ftr.assessmentTarget, testedguidnode, g)
+        triplify(executionid, prov.used, testedguidnode, g)
+        triplify(testedguidnode, RDF.type, prov.Entity, g)
+        triplify(testedguidnode, dct.identifier, testedGUID, g, 'xsd:string')
+      rescue StandardError
+        triplify(uniqueid, ftr.assessmentTarget, 'not a URI', g)
+        triplify(executionid, prov.used, 'not a URI', g)
+        score = 'fail'
+      end
 
-      triplify(uniqueid, ftr.assessmentTarget, "#{testedGUID}", g, 'xsd:string')
-      triplify(executionid, prov.used, entityid, g)
-      triplify(entityid, RDF.type, prov.Entity, g)
-      triplify(entityid, dct.identifier, testedGUID, g, 'xsd:string')
       # rescue StandardError
       #   triplify(uniqueid, ftr.assessmentTarget, 'not a URI', g)
       #   triplify(executionid, prov.used, 'not a URI', g)
