@@ -97,7 +97,7 @@ module FAIRChampion
       # triplify(tid, schema.identifier, testedGUID, g, xsd.string)
       # triplify(tid, schema.url, testedGUID, g) if testedGUID =~ %r{^https?://}
       # begin
-      testedguidnode = 'urn:ostrails:testexecutionactivity:guidentity:' + SecureRandom.uuid
+      testedguidnode = 'urn:ostrails:testedidentifiernode:' + SecureRandom.uuid
       begin
         triplify(uniqueid, ftr.assessmentTarget, testedguidnode, g)
         triplify(executionid, prov.used, testedguidnode, g)
