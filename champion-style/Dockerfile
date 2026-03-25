@@ -1,3 +1,4 @@
+
 # Use explicit tag for reproducibility (Debian 12 / Bookworm)
 FROM ruby:3.2-bookworm
 
@@ -6,6 +7,7 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:utf8 \
     LC_ALL=en_US.UTF-8 \
     RACK_ENV=production
+
 
 # Combine all apt installs + cleanup in ONE layer for smaller image & better caching
 RUN apt-get update -qq && \
