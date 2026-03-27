@@ -1,0 +1,37 @@
+          <%# test_object = {
+            subj: solution[:sub]&.to_s,
+            identifier: solution[:identifier]&.to_s,
+            title: solution[:title]&.to_s,
+            description: solution[:description]&.to_s,
+            endpoint: solution[:endpoint]&.to_s,
+            openapi: solution[:openapi]&.to_s,
+            dimension: solution[:dimension]&.to_s,
+            objects: solution[:objects]&.to_s,
+            domain: solution[:domain]&.to_s,
+            benchmark_or_metric: solution[:benchmark_or_metric]&.to_s
+          } %>
+
+<% @testobjects.each do |t| %>
+      <h2><% testname = t[:title] %></h2>
+      <div class="form-card">
+        <form action="<%= t[:endpoint] %>" method="post">
+          <% id = t[:subj].gsub(%r{.*[/#]}, "") %>
+          <label for="resource_identifier_<%= id %>"><%= testname %></label>
+          <% if t[:endpoint]&.length&.positive? %>
+            <input type="text" name="resource_identifier" id="resource_identifier_<%= id %>" placeholder="e.g., https://example.org/dataset">
+          <% else %>
+            No Publicly Accessible Interface
+          <% end %>
+          <div>
+            <a href="<%= t[:benchmark_or_metric] %>">Metric</a>: <%= @labels[t[:benchmark_or_metric]] %><br/>
+            <a href="<%= t[:openapi] %>">Interface</a><br/>
+            <a href="<%= t[:subj] %>">DCAT Metadata</a>
+          </div>
+          <input type="submit" value="Test it">
+        </form>
+      </div>
+      <br><br>
+    <% end %>
+  </div>
+</body>
+</html>

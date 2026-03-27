@@ -1,0 +1,1339 @@
+{
+  "id": "https://openalex.org/W2791916884",
+  "doi": "https://doi.org/10.1103/physrevlett.120.128104",
+  "title": "Coupling between Inclusions and Membranes at the Nanoscale",
+  "display_name": "Coupling between Inclusions and Membranes at the Nanoscale",
+  "publication_year": 2018,
+  "publication_date": "2018-03-23",
+  "ids": {
+    "openalex": "https://openalex.org/W2791916884",
+    "doi": "https://doi.org/10.1103/physrevlett.120.128104",
+    "mag": "2791916884",
+    "pmid": "https://pubmed.ncbi.nlm.nih.gov/29694104"
+  },
+  "language": "en",
+  "primary_location": {
+    "id": "doi:10.1103/physrevlett.120.128104",
+    "is_oa": false,
+    "landing_page_url": "https://doi.org/10.1103/physrevlett.120.128104",
+    "pdf_url": null,
+    "source": {
+      "id": "https://openalex.org/S24807848",
+      "display_name": "Physical Review Letters",
+      "issn_l": "0031-9007",
+      "issn": [
+        "0031-9007",
+        "1079-7114",
+        "1092-0145"
+      ],
+      "is_oa": false,
+      "is_in_doaj": false,
+      "is_core": true,
+      "host_organization": "https://openalex.org/P4310320261",
+      "host_organization_name": "American Physical Society",
+      "host_organization_lineage": [
+        "https://openalex.org/P4310320261"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "journal"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "publishedVersion",
+    "is_accepted": true,
+    "is_published": true,
+    "raw_source_name": "Physical Review Letters",
+    "raw_type": "journal-article"
+  },
+  "type": "article",
+  "indexed_in": [
+    "arxiv",
+    "crossref",
+    "pubmed"
+  ],
+  "open_access": {
+    "is_oa": true,
+    "oa_status": "green",
+    "oa_url": "https://arxiv.org/pdf/1803.10089",
+    "any_repository_has_fulltext": false
+  },
+  "authorships": [
+    {
+      "author_position": "first",
+      "author": {
+        "id": "https://openalex.org/A5011475668",
+        "display_name": "Florent Bories",
+        "orcid": null
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210127056",
+          "display_name": "Laboratoire Matière et Systèmes Complexes",
+          "ror": "https://ror.org/032w6q449",
+          "country_code": "FR",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I204730241",
+            "https://openalex.org/I4210095849",
+            "https://openalex.org/I4210127056"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I204730241",
+          "display_name": "Université Paris Cité",
+          "ror": "https://ror.org/05f82e368",
+          "country_code": "FR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I204730241"
+          ]
+        }
+      ],
+      "countries": [
+        "FR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Florent Bories",
+      "raw_affiliation_strings": [
+        "MSC - Matière et Systèmes Complexes (Université Paris Diderot, Bât. Condorcet, case postale 7056, 10 rue Alice Domon et Léonie Duquet, 75205 PARIS Cedex 13 - France)"
+      ],
+      "affiliations": [
+        {
+          "raw_affiliation_string": "MSC - Matière et Systèmes Complexes (Université Paris Diderot, Bât. Condorcet, case postale 7056, 10 rue Alice Domon et Léonie Duquet, 75205 PARIS Cedex 13 - France)",
+          "institution_ids": [
+            "https://openalex.org/I204730241",
+            "https://openalex.org/I4210127056"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5035696235",
+        "display_name": "Doru Constantin",
+        "orcid": "https://orcid.org/0000-0001-5623-9633"
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I2799857465",
+          "display_name": "Laboratoire de physique des Solides",
+          "ror": "https://ror.org/02dyaew97",
+          "country_code": "FR",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I277688954",
+            "https://openalex.org/I2799857465"
+          ]
+        }
+      ],
+      "countries": [
+        "FR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Doru Constantin",
+      "raw_affiliation_strings": [
+        "LPS - Laboratoire de Physique des Solides (Bat. 510 91405 Orsay cedex - France)"
+      ],
+      "affiliations": [
+        {
+          "raw_affiliation_string": "LPS - Laboratoire de Physique des Solides (Bat. 510 91405 Orsay cedex - France)",
+          "institution_ids": [
+            "https://openalex.org/I2799857465"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "middle",
+      "author": {
+        "id": "https://openalex.org/A5046253812",
+        "display_name": "P. Galatola",
+        "orcid": "https://orcid.org/0000-0001-6392-7901"
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210127056",
+          "display_name": "Laboratoire Matière et Systèmes Complexes",
+          "ror": "https://ror.org/032w6q449",
+          "country_code": "FR",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I204730241",
+            "https://openalex.org/I4210095849",
+            "https://openalex.org/I4210127056"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I204730241",
+          "display_name": "Université Paris Cité",
+          "ror": "https://ror.org/05f82e368",
+          "country_code": "FR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I204730241"
+          ]
+        }
+      ],
+      "countries": [
+        "FR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Paolo Galatola",
+      "raw_affiliation_strings": [
+        "MSC - Matière et Systèmes Complexes (Université Paris Diderot, Bât. Condorcet, case postale 7056, 10 rue Alice Domon et Léonie Duquet, 75205 PARIS Cedex 13 - France)"
+      ],
+      "affiliations": [
+        {
+          "raw_affiliation_string": "MSC - Matière et Systèmes Complexes (Université Paris Diderot, Bât. Condorcet, case postale 7056, 10 rue Alice Domon et Léonie Duquet, 75205 PARIS Cedex 13 - France)",
+          "institution_ids": [
+            "https://openalex.org/I204730241",
+            "https://openalex.org/I4210127056"
+          ]
+        }
+      ]
+    },
+    {
+      "author_position": "last",
+      "author": {
+        "id": "https://openalex.org/A5028007220",
+        "display_name": "Jean‐Baptiste Fournier",
+        "orcid": "https://orcid.org/0000-0003-3760-9357"
+      },
+      "institutions": [
+        {
+          "id": "https://openalex.org/I4210127056",
+          "display_name": "Laboratoire Matière et Systèmes Complexes",
+          "ror": "https://ror.org/032w6q449",
+          "country_code": "FR",
+          "type": "facility",
+          "lineage": [
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I1294671590",
+            "https://openalex.org/I204730241",
+            "https://openalex.org/I4210095849",
+            "https://openalex.org/I4210127056"
+          ]
+        },
+        {
+          "id": "https://openalex.org/I204730241",
+          "display_name": "Université Paris Cité",
+          "ror": "https://ror.org/05f82e368",
+          "country_code": "FR",
+          "type": "education",
+          "lineage": [
+            "https://openalex.org/I204730241"
+          ]
+        }
+      ],
+      "countries": [
+        "FR"
+      ],
+      "is_corresponding": false,
+      "raw_author_name": "Jean-Baptiste Fournier",
+      "raw_affiliation_strings": [
+        "MSC - Matière et Systèmes Complexes (Université Paris Diderot, Bât. Condorcet, case postale 7056, 10 rue Alice Domon et Léonie Duquet, 75205 PARIS Cedex 13 - France)"
+      ],
+      "affiliations": [
+        {
+          "raw_affiliation_string": "MSC - Matière et Systèmes Complexes (Université Paris Diderot, Bât. Condorcet, case postale 7056, 10 rue Alice Domon et Léonie Duquet, 75205 PARIS Cedex 13 - France)",
+          "institution_ids": [
+            "https://openalex.org/I204730241",
+            "https://openalex.org/I4210127056"
+          ]
+        }
+      ]
+    }
+  ],
+  "institutions": [],
+  "countries_distinct_count": 1,
+  "institutions_distinct_count": 4,
+  "corresponding_author_ids": [],
+  "corresponding_institution_ids": [],
+  "apc_list": {
+    "value": 3750,
+    "currency": "USD",
+    "value_usd": 3750
+  },
+  "apc_paid": null,
+  "fwci": 0.96394151,
+  "has_fulltext": false,
+  "cited_by_count": 11,
+  "citation_normalized_percentile": {
+    "value": 0.7208584,
+    "is_in_top_1_percent": false,
+    "is_in_top_10_percent": false
+  },
+  "cited_by_percentile_year": {
+    "min": 89,
+    "max": 97
+  },
+  "biblio": {
+    "volume": "120",
+    "issue": "12",
+    "first_page": "128104",
+    "last_page": "128104"
+  },
+  "is_retracted": false,
+  "is_paratext": false,
+  "is_xpac": false,
+  "primary_topic": {
+    "id": "https://openalex.org/T10407",
+    "display_name": "Lipid Membrane Structure and Behavior",
+    "score": 1.0,
+    "subfield": {
+      "id": "https://openalex.org/subfields/1312",
+      "display_name": "Molecular Biology"
+    },
+    "field": {
+      "id": "https://openalex.org/fields/13",
+      "display_name": "Biochemistry, Genetics and Molecular Biology"
+    },
+    "domain": {
+      "id": "https://openalex.org/domains/1",
+      "display_name": "Life Sciences"
+    }
+  },
+  "topics": [
+    {
+      "id": "https://openalex.org/T10407",
+      "display_name": "Lipid Membrane Structure and Behavior",
+      "score": 1.0,
+      "subfield": {
+        "id": "https://openalex.org/subfields/1312",
+        "display_name": "Molecular Biology"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/13",
+        "display_name": "Biochemistry, Genetics and Molecular Biology"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/1",
+        "display_name": "Life Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T11582",
+      "display_name": "Nanopore and Nanochannel Transport Studies",
+      "score": 0.9991999864578247,
+      "subfield": {
+        "id": "https://openalex.org/subfields/2204",
+        "display_name": "Biomedical Engineering"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/22",
+        "display_name": "Engineering"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    },
+    {
+      "id": "https://openalex.org/T10923",
+      "display_name": "Force Microscopy Techniques and Applications",
+      "score": 0.9987999796867371,
+      "subfield": {
+        "id": "https://openalex.org/subfields/3107",
+        "display_name": "Atomic and Molecular Physics, and Optics"
+      },
+      "field": {
+        "id": "https://openalex.org/fields/31",
+        "display_name": "Physics and Astronomy"
+      },
+      "domain": {
+        "id": "https://openalex.org/domains/3",
+        "display_name": "Physical Sciences"
+      }
+    }
+  ],
+  "keywords": [
+    {
+      "id": "https://openalex.org/keywords/membrane",
+      "display_name": "Membrane",
+      "score": 0.7422885298728943
+    },
+    {
+      "id": "https://openalex.org/keywords/coupling",
+      "display_name": "Coupling (piping)",
+      "score": 0.6648958921432495
+    },
+    {
+      "id": "https://openalex.org/keywords/lipid-bilayer",
+      "display_name": "Lipid bilayer",
+      "score": 0.6583954095840454
+    },
+    {
+      "id": "https://openalex.org/keywords/materials-science",
+      "display_name": "Materials science",
+      "score": 0.5917485952377319
+    },
+    {
+      "id": "https://openalex.org/keywords/bilayer",
+      "display_name": "Bilayer",
+      "score": 0.5179802179336548
+    },
+    {
+      "id": "https://openalex.org/keywords/boundary",
+      "display_name": "Boundary (topology)",
+      "score": 0.5035859942436218
+    },
+    {
+      "id": "https://openalex.org/keywords/nanoscopic-scale",
+      "display_name": "Nanoscopic scale",
+      "score": 0.49018222093582153
+    },
+    {
+      "id": "https://openalex.org/keywords/scattering",
+      "display_name": "Scattering",
+      "score": 0.4802549183368683
+    },
+    {
+      "id": "https://openalex.org/keywords/gramicidin",
+      "display_name": "Gramicidin",
+      "score": 0.45727258920669556
+    },
+    {
+      "id": "https://openalex.org/keywords/channel",
+      "display_name": "Channel (broadcasting)",
+      "score": 0.4153844118118286
+    },
+    {
+      "id": "https://openalex.org/keywords/chemical-physics",
+      "display_name": "Chemical physics",
+      "score": 0.4095667004585266
+    },
+    {
+      "id": "https://openalex.org/keywords/condensed-matter-physics",
+      "display_name": "Condensed matter physics",
+      "score": 0.3935382068157196
+    },
+    {
+      "id": "https://openalex.org/keywords/molecular-physics",
+      "display_name": "Molecular physics",
+      "score": 0.3419749140739441
+    },
+    {
+      "id": "https://openalex.org/keywords/mechanics",
+      "display_name": "Mechanics",
+      "score": 0.3268217444419861
+    },
+    {
+      "id": "https://openalex.org/keywords/physics",
+      "display_name": "Physics",
+      "score": 0.30015289783477783
+    },
+    {
+      "id": "https://openalex.org/keywords/nanotechnology",
+      "display_name": "Nanotechnology",
+      "score": 0.2882242798805237
+    },
+    {
+      "id": "https://openalex.org/keywords/optics",
+      "display_name": "Optics",
+      "score": 0.24253186583518982
+    },
+    {
+      "id": "https://openalex.org/keywords/chemistry",
+      "display_name": "Chemistry",
+      "score": 0.1847742795944214
+    },
+    {
+      "id": "https://openalex.org/keywords/composite-material",
+      "display_name": "Composite material",
+      "score": 0.12362542748451233
+    }
+  ],
+  "concepts": [
+    {
+      "id": "https://openalex.org/C41625074",
+      "wikidata": "https://www.wikidata.org/wiki/Q176088",
+      "display_name": "Membrane",
+      "level": 2,
+      "score": 0.7422885298728943
+    },
+    {
+      "id": "https://openalex.org/C131584629",
+      "wikidata": "https://www.wikidata.org/wiki/Q4308705",
+      "display_name": "Coupling (piping)",
+      "level": 2,
+      "score": 0.6648958921432495
+    },
+    {
+      "id": "https://openalex.org/C39944091",
+      "wikidata": "https://www.wikidata.org/wiki/Q423279",
+      "display_name": "Lipid bilayer",
+      "level": 3,
+      "score": 0.6583954095840454
+    },
+    {
+      "id": "https://openalex.org/C192562407",
+      "wikidata": "https://www.wikidata.org/wiki/Q228736",
+      "display_name": "Materials science",
+      "level": 0,
+      "score": 0.5917485952377319
+    },
+    {
+      "id": "https://openalex.org/C192157962",
+      "wikidata": "https://www.wikidata.org/wiki/Q4087243",
+      "display_name": "Bilayer",
+      "level": 3,
+      "score": 0.5179802179336548
+    },
+    {
+      "id": "https://openalex.org/C62354387",
+      "wikidata": "https://www.wikidata.org/wiki/Q875399",
+      "display_name": "Boundary (topology)",
+      "level": 2,
+      "score": 0.5035859942436218
+    },
+    {
+      "id": "https://openalex.org/C45206210",
+      "wikidata": "https://www.wikidata.org/wiki/Q2415817",
+      "display_name": "Nanoscopic scale",
+      "level": 2,
+      "score": 0.49018222093582153
+    },
+    {
+      "id": "https://openalex.org/C191486275",
+      "wikidata": "https://www.wikidata.org/wiki/Q210028",
+      "display_name": "Scattering",
+      "level": 2,
+      "score": 0.4802549183368683
+    },
+    {
+      "id": "https://openalex.org/C2779650302",
+      "wikidata": "https://www.wikidata.org/wiki/Q418980",
+      "display_name": "Gramicidin",
+      "level": 3,
+      "score": 0.45727258920669556
+    },
+    {
+      "id": "https://openalex.org/C127162648",
+      "wikidata": "https://www.wikidata.org/wiki/Q16858953",
+      "display_name": "Channel (broadcasting)",
+      "level": 2,
+      "score": 0.4153844118118286
+    },
+    {
+      "id": "https://openalex.org/C159467904",
+      "wikidata": "https://www.wikidata.org/wiki/Q2001702",
+      "display_name": "Chemical physics",
+      "level": 1,
+      "score": 0.4095667004585266
+    },
+    {
+      "id": "https://openalex.org/C26873012",
+      "wikidata": "https://www.wikidata.org/wiki/Q214781",
+      "display_name": "Condensed matter physics",
+      "level": 1,
+      "score": 0.3935382068157196
+    },
+    {
+      "id": "https://openalex.org/C41999313",
+      "wikidata": "https://www.wikidata.org/wiki/Q489328",
+      "display_name": "Molecular physics",
+      "level": 1,
+      "score": 0.3419749140739441
+    },
+    {
+      "id": "https://openalex.org/C57879066",
+      "wikidata": "https://www.wikidata.org/wiki/Q41217",
+      "display_name": "Mechanics",
+      "level": 1,
+      "score": 0.3268217444419861
+    },
+    {
+      "id": "https://openalex.org/C121332964",
+      "wikidata": "https://www.wikidata.org/wiki/Q413",
+      "display_name": "Physics",
+      "level": 0,
+      "score": 0.30015289783477783
+    },
+    {
+      "id": "https://openalex.org/C171250308",
+      "wikidata": "https://www.wikidata.org/wiki/Q11468",
+      "display_name": "Nanotechnology",
+      "level": 1,
+      "score": 0.2882242798805237
+    },
+    {
+      "id": "https://openalex.org/C120665830",
+      "wikidata": "https://www.wikidata.org/wiki/Q14620",
+      "display_name": "Optics",
+      "level": 1,
+      "score": 0.24253186583518982
+    },
+    {
+      "id": "https://openalex.org/C185592680",
+      "wikidata": "https://www.wikidata.org/wiki/Q2329",
+      "display_name": "Chemistry",
+      "level": 0,
+      "score": 0.1847742795944214
+    },
+    {
+      "id": "https://openalex.org/C159985019",
+      "wikidata": "https://www.wikidata.org/wiki/Q181790",
+      "display_name": "Composite material",
+      "level": 1,
+      "score": 0.12362542748451233
+    },
+    {
+      "id": "https://openalex.org/C127413603",
+      "wikidata": "https://www.wikidata.org/wiki/Q11023",
+      "display_name": "Engineering",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C134306372",
+      "wikidata": "https://www.wikidata.org/wiki/Q7754",
+      "display_name": "Mathematical analysis",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C33923547",
+      "wikidata": "https://www.wikidata.org/wiki/Q395",
+      "display_name": "Mathematics",
+      "level": 0,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C119599485",
+      "wikidata": "https://www.wikidata.org/wiki/Q43035",
+      "display_name": "Electrical engineering",
+      "level": 1,
+      "score": 0.0
+    },
+    {
+      "id": "https://openalex.org/C55493867",
+      "wikidata": "https://www.wikidata.org/wiki/Q7094",
+      "display_name": "Biochemistry",
+      "level": 1,
+      "score": 0.0
+    }
+  ],
+  "mesh": [
+    {
+      "descriptor_ui": "D002462",
+      "descriptor_name": "Cell Membrane",
+      "qualifier_ui": "Q000737",
+      "qualifier_name": "chemistry",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D002462",
+      "descriptor_name": "Cell Membrane",
+      "qualifier_ui": "Q000378",
+      "qualifier_name": "metabolism",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D006096",
+      "descriptor_name": "Gramicidin",
+      "qualifier_ui": "Q000737",
+      "qualifier_name": "chemistry",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D006096",
+      "descriptor_name": "Gramicidin",
+      "qualifier_ui": "Q000378",
+      "qualifier_name": "metabolism",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D057927",
+      "descriptor_name": "Hydrophobic and Hydrophilic Interactions",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D007473",
+      "descriptor_name": "Ion Channels",
+      "qualifier_ui": "Q000737",
+      "qualifier_name": "chemistry",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D007473",
+      "descriptor_name": "Ion Channels",
+      "qualifier_ui": "Q000378",
+      "qualifier_name": "metabolism",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D008563",
+      "descriptor_name": "Membrane Lipids",
+      "qualifier_ui": "Q000737",
+      "qualifier_name": "chemistry",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D008563",
+      "descriptor_name": "Membrane Lipids",
+      "qualifier_ui": "Q000378",
+      "qualifier_name": "metabolism",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D008954",
+      "descriptor_name": "Models, Biological",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": true
+    },
+    {
+      "descriptor_ui": "D008956",
+      "descriptor_name": "Models, Chemical",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": true
+    },
+    {
+      "descriptor_ui": "D002462",
+      "descriptor_name": "Cell Membrane",
+      "qualifier_ui": "Q000737",
+      "qualifier_name": "chemistry",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D002462",
+      "descriptor_name": "Cell Membrane",
+      "qualifier_ui": "Q000378",
+      "qualifier_name": "metabolism",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D006096",
+      "descriptor_name": "Gramicidin",
+      "qualifier_ui": "Q000737",
+      "qualifier_name": "chemistry",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D006096",
+      "descriptor_name": "Gramicidin",
+      "qualifier_ui": "Q000378",
+      "qualifier_name": "metabolism",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D057927",
+      "descriptor_name": "Hydrophobic and Hydrophilic Interactions",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D007473",
+      "descriptor_name": "Ion Channels",
+      "qualifier_ui": "Q000737",
+      "qualifier_name": "chemistry",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D007473",
+      "descriptor_name": "Ion Channels",
+      "qualifier_ui": "Q000378",
+      "qualifier_name": "metabolism",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D008563",
+      "descriptor_name": "Membrane Lipids",
+      "qualifier_ui": "Q000737",
+      "qualifier_name": "chemistry",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D008563",
+      "descriptor_name": "Membrane Lipids",
+      "qualifier_ui": "Q000378",
+      "qualifier_name": "metabolism",
+      "is_major_topic": false
+    },
+    {
+      "descriptor_ui": "D008954",
+      "descriptor_name": "Models, Biological",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": true
+    },
+    {
+      "descriptor_ui": "D008956",
+      "descriptor_name": "Models, Chemical",
+      "qualifier_ui": null,
+      "qualifier_name": null,
+      "is_major_topic": true
+    }
+  ],
+  "locations_count": 4,
+  "locations": [
+    {
+      "id": "doi:10.1103/physrevlett.120.128104",
+      "is_oa": false,
+      "landing_page_url": "https://doi.org/10.1103/physrevlett.120.128104",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S24807848",
+        "display_name": "Physical Review Letters",
+        "issn_l": "0031-9007",
+        "issn": [
+          "0031-9007",
+          "1079-7114",
+          "1092-0145"
+        ],
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": true,
+        "host_organization": "https://openalex.org/P4310320261",
+        "host_organization_name": "American Physical Society",
+        "host_organization_lineage": [
+          "https://openalex.org/P4310320261"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "journal"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Physical Review Letters",
+      "raw_type": "journal-article"
+    },
+    {
+      "id": "pmid:29694104",
+      "is_oa": false,
+      "landing_page_url": "https://pubmed.ncbi.nlm.nih.gov/29694104",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306525036",
+        "display_name": "PubMed",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "host_organization": "https://openalex.org/I1299303238",
+        "host_organization_name": "National Institutes of Health",
+        "host_organization_lineage": [
+          "https://openalex.org/I1299303238"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "publishedVersion",
+      "is_accepted": true,
+      "is_published": true,
+      "raw_source_name": "Physical review letters",
+      "raw_type": null
+    },
+    {
+      "id": "pmh:oai:arXiv.org:1803.10089",
+      "is_oa": true,
+      "landing_page_url": "http://arxiv.org/abs/1803.10089",
+      "pdf_url": "https://arxiv.org/pdf/1803.10089",
+      "source": {
+        "id": "https://openalex.org/S4306400194",
+        "display_name": "arXiv (Cornell University)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": true,
+        "is_in_doaj": false,
+        "is_core": false,
+        "host_organization": "https://openalex.org/I205783295",
+        "host_organization_name": "Cornell University",
+        "host_organization_lineage": [
+          "https://openalex.org/I205783295"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": null,
+      "license_id": null,
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "",
+      "raw_type": "text"
+    },
+    {
+      "id": "pmh:oai:HAL:hal-01742935v1",
+      "is_oa": true,
+      "landing_page_url": "https://hal.science/hal-01742935",
+      "pdf_url": null,
+      "source": {
+        "id": "https://openalex.org/S4306402512",
+        "display_name": "HAL (Le Centre pour la Communication Scientifique Directe)",
+        "issn_l": null,
+        "issn": null,
+        "is_oa": false,
+        "is_in_doaj": false,
+        "is_core": false,
+        "host_organization": "https://openalex.org/I1294671590",
+        "host_organization_name": "Centre National de la Recherche Scientifique",
+        "host_organization_lineage": [
+          "https://openalex.org/I1294671590"
+        ],
+        "host_organization_lineage_names": [],
+        "type": "repository"
+      },
+      "license": "other-oa",
+      "license_id": "https://openalex.org/licenses/other-oa",
+      "version": "submittedVersion",
+      "is_accepted": false,
+      "is_published": false,
+      "raw_source_name": "Physical Review Letters, 2018, 120 (12), pp.128104. &#x27E8;10.1103/PhysRevLett.120.128104&#x27E9;",
+      "raw_type": "Journal articles"
+    }
+  ],
+  "best_oa_location": {
+    "id": "pmh:oai:arXiv.org:1803.10089",
+    "is_oa": true,
+    "landing_page_url": "http://arxiv.org/abs/1803.10089",
+    "pdf_url": "https://arxiv.org/pdf/1803.10089",
+    "source": {
+      "id": "https://openalex.org/S4306400194",
+      "display_name": "arXiv (Cornell University)",
+      "issn_l": null,
+      "issn": null,
+      "is_oa": true,
+      "is_in_doaj": false,
+      "is_core": false,
+      "host_organization": "https://openalex.org/I205783295",
+      "host_organization_name": "Cornell University",
+      "host_organization_lineage": [
+        "https://openalex.org/I205783295"
+      ],
+      "host_organization_lineage_names": [],
+      "type": "repository"
+    },
+    "license": null,
+    "license_id": null,
+    "version": "submittedVersion",
+    "is_accepted": false,
+    "is_published": false,
+    "raw_source_name": "",
+    "raw_type": "text"
+  },
+  "sustainable_development_goals": [
+    {
+      "display_name": "Life in Land",
+      "score": 0.5199999809265137,
+      "id": "https://metadata.un.org/sdg/15"
+    }
+  ],
+  "grants": [
+    {
+      "funder": "https://openalex.org/F4320320883",
+      "funder_display_name": "Agence Nationale de la Recherche",
+      "award_id": "ANR-12-BS04-0023-MEMINT"
+    },
+    {
+      "funder": "https://openalex.org/F4320320887",
+      "funder_display_name": "European Synchrotron Radiation Facility",
+      "award_id": null
+    }
+  ],
+  "awards": [],
+  "funders": [
+    {
+      "id": "https://openalex.org/F4320320883",
+      "display_name": "Agence Nationale de la Recherche",
+      "ror": "https://ror.org/00rbzpz17"
+    },
+    {
+      "id": "https://openalex.org/F4320320887",
+      "display_name": "European Synchrotron Radiation Facility",
+      "ror": "https://ror.org/02550n020"
+    }
+  ],
+  "has_content": {
+    "pdf": false,
+    "grobid_xml": false
+  },
+  "referenced_works_count": 36,
+  "referenced_works": [
+    "https://openalex.org/W1972765038",
+    "https://openalex.org/W1976484542",
+    "https://openalex.org/W1986665610",
+    "https://openalex.org/W2137530264",
+    "https://openalex.org/W2114469046",
+    "https://openalex.org/W2041471555",
+    "https://openalex.org/W2129732513",
+    "https://openalex.org/W2076235790",
+    "https://openalex.org/W1965426705",
+    "https://openalex.org/W2042001257",
+    "https://openalex.org/W2027658586",
+    "https://openalex.org/W2334352051",
+    "https://openalex.org/W1989964099",
+    "https://openalex.org/W2117633153",
+    "https://openalex.org/W2075303510",
+    "https://openalex.org/W2071137034",
+    "https://openalex.org/W2062092582",
+    "https://openalex.org/W1989417741",
+    "https://openalex.org/W2037057604",
+    "https://openalex.org/W2162850330",
+    "https://openalex.org/W2018351651",
+    "https://openalex.org/W1972637967",
+    "https://openalex.org/W2118560848",
+    "https://openalex.org/W2075678109",
+    "https://openalex.org/W2013876741",
+    "https://openalex.org/W2027446511",
+    "https://openalex.org/W2070677527",
+    "https://openalex.org/W2155763297",
+    "https://openalex.org/W2598993487",
+    "https://openalex.org/W2028063496",
+    "https://openalex.org/W2056202184",
+    "https://openalex.org/W2059571424",
+    "https://openalex.org/W2040390839",
+    "https://openalex.org/W2075642935",
+    "https://openalex.org/W3105485904",
+    "https://openalex.org/W2011486797"
+  ],
+  "related_works": [
+    "https://openalex.org/W2389992822",
+    "https://openalex.org/W3087515022",
+    "https://openalex.org/W2079781758",
+    "https://openalex.org/W2061481432",
+    "https://openalex.org/W1970919708",
+    "https://openalex.org/W2100090167",
+    "https://openalex.org/W4200406144",
+    "https://openalex.org/W1483662593",
+    "https://openalex.org/W2072230736",
+    "https://openalex.org/W4206087209"
+  ],
+  "abstract_inverted_index": {
+    "The": [
+      0
+    ],
+    "activity": [
+      1
+    ],
+    "of": [
+      2,
+      29,
+      36,
+      52
+    ],
+    "cell": [
+      3
+    ],
+    "membrane": [
+      4,
+      93
+    ],
+    "inclusions": [
+      5
+    ],
+    "(such": [
+      6
+    ],
+    "as": [
+      7,
+      39
+    ],
+    "ion": [
+      8
+    ],
+    "channels)": [
+      9
+    ],
+    "is": [
+      10,
+      88,
+      102
+    ],
+    "influenced": [
+      11
+    ],
+    "by": [
+      12,
+      33,
+      106
+    ],
+    "the": [
+      13,
+      26,
+      30,
+      34,
+      37,
+      41,
+      50,
+      53,
+      77,
+      80,
+      107,
+      113
+    ],
+    "host": [
+      14
+    ],
+    "lipid": [
+      15
+    ],
+    "membrane,": [
+      16
+    ],
+    "to": [
+      17,
+      75
+    ],
+    "which": [
+      18
+    ],
+    "they": [
+      19
+    ],
+    "are": [
+      20
+    ],
+    "elastically": [
+      21
+    ],
+    "coupled.": [
+      22
+    ],
+    "This": [
+      23,
+      100
+    ],
+    "coupling": [
+      24
+    ],
+    "concerns": [
+      25
+    ],
+    "hydrophobic": [
+      27,
+      42
+    ],
+    "thickness": [
+      28
+    ],
+    "bilayer": [
+      31
+    ],
+    "(imposed": [
+      32
+    ],
+    "length": [
+      35
+    ],
+    "channel,": [
+      38
+    ],
+    "per": [
+      40
+    ],
+    "matching": [
+      43
+    ],
+    "principle)": [
+      44
+    ],
+    "but": [
+      45
+    ],
+    "also": [
+      46
+    ],
+    "its": [
+      47
+    ],
+    "slope": [
+      48,
+      78
+    ],
+    "at": [
+      49
+    ],
+    "boundary": [
+      51
+    ],
+    "inclusion.": [
+      54
+    ],
+    "However,": [
+      55
+    ],
+    "this": [
+      56
+    ],
+    "parameter": [
+      57
+    ],
+    "has": [
+      58
+    ],
+    "never": [
+      59
+    ],
+    "been": [
+      60
+    ],
+    "measured": [
+      61
+    ],
+    "so": [
+      62
+    ],
+    "far.": [
+      63
+    ],
+    "We": [
+      64
+    ],
+    "combine": [
+      65
+    ],
+    "small-angle": [
+      66
+    ],
+    "x-ray": [
+      67
+    ],
+    "scattering": [
+      68
+    ],
+    "data": [
+      69
+    ],
+    "and": [
+      70,
+      84,
+      104,
+      116
+    ],
+    "a": [
+      71
+    ],
+    "complete": [
+      72
+    ],
+    "elastic": [
+      73,
+      98
+    ],
+    "model": [
+      74,
+      81
+    ],
+    "measure": [
+      76
+    ],
+    "for": [
+      79
+    ],
+    "gramicidin": [
+      82
+    ],
+    "channel": [
+      83
+    ],
+    "show": [
+      85
+    ],
+    "that": [
+      86
+    ],
+    "it": [
+      87
+    ],
+    "surprisingly": [
+      89
+    ],
+    "steep": [
+      90
+    ],
+    "in": [
+      91,
+      112
+    ],
+    "two": [
+      92
+    ],
+    "systems": [
+      94
+    ],
+    "with": [
+      95,
+      109,
+      117
+    ],
+    "very": [
+      96
+    ],
+    "different": [
+      97
+    ],
+    "properties.": [
+      99
+    ],
+    "conclusion": [
+      101
+    ],
+    "confirmed": [
+      103
+    ],
+    "generalized": [
+      105
+    ],
+    "comparison": [
+      108
+    ],
+    "recent": [
+      110
+    ],
+    "results": [
+      111
+    ],
+    "simulation": [
+      114
+    ],
+    "literature": [
+      115
+    ],
+    "conductivity": [
+      118
+    ],
+    "measurements.": [
+      119
+    ]
+  },
+  "counts_by_year": [
+    {
+      "year": 2022,
+      "cited_by_count": 2
+    },
+    {
+      "year": 2021,
+      "cited_by_count": 3
+    },
+    {
+      "year": 2020,
+      "cited_by_count": 1
+    },
+    {
+      "year": 2019,
+      "cited_by_count": 2
+    },
+    {
+      "year": 2018,
+      "cited_by_count": 3
+    }
+  ],
+  "updated_date": "2025-11-06T03:46:38.306776",
+  "created_date": "2025-10-10T00:00:00"
+}

@@ -1,3 +1,5 @@
+require_relative File.dirname(__FILE__) + '/../lib/harvester.rb'
+
 class FAIRTest
   def self.community_metadata_includes_author_affiliation_meta
     {
@@ -37,15 +39,15 @@ class FAIRTest
     output.comments << "INFO: TEST VERSION '#{community_metadata_includes_author_affiliation_meta[:testversion]}'\n"
 
     # meta = FAIRChampion::MetadataObject.new
-    metadata = FAIRChampionHarvester::Core.resolveit(guid) # this is where the magic happens!
+    metadata = FAIRChampion::Harvester.resolveit(guid) # this is where the magic happens!
 
     metadata.comments.each do |c|
       output.comments << c
     end
 
     hash = metadata.hash
-    # graph = metadata.graph
-    properties = FAIRChampionHarvester::Core.deep_dive_properties(hash)
+    graph = metadata.graph
+    properties = FAIRChampion::Harvester.deep_dive_properties(hash)
     #  properties is [[:user, "bob42"],
     #   #     [:config, {theme: "dark", alerts: {email: true, push: false}}],
     #   #     [:theme, "dark"],
@@ -71,7 +73,7 @@ class FAIRTest
     output.comments << "INFO: Now testing #{guid} for affiliation information\n"
 
     output.comments << "INFO: Now testing #{guid} for registration agency\n"
-    agency = FAIRChampionHarvester::DOI.resolve_doi_to_registration_agency(guid, output)
+    agency = FAIRChampion::Harvester.resolve_doi_to_registration_agency(guid, output)
     unless agency
       output.score = 'indeterminate'
       output.comments << "INDETERMINATE: The DOI was not a datacite or crossref DOI.\n"
@@ -81,7 +83,7 @@ class FAIRTest
     if agency == 'Crossref'
       output.comments << "INFO: Agency is Crossref\n"
       output.comments << "INFO: Checking for affiliation block\n"
-      fundingblock = FAIRChampionHarvester::DOI.check_affiliation_information_from_crossref(guid, output)
+      fundingblock = FAIRChampion::Harvester.check_affiliation_information_from_crossref(guid, output)
       unless fundingblock
         output.score = 'fail'
         output.comments << "FAIL: No affiliation found in crossref metadata.\n"
@@ -91,7 +93,7 @@ class FAIRTest
     elsif agency == 'DataCite'
       output.comments << "INFO: Agency is Datacite\n"
       output.comments << "INFO: Checking for affiliation block\n"
-      fundingblock = FAIRChampionHarvester::DOI.check_affiliation_information_from_datacite(guid, output)
+      fundingblock = FAIRChampion::Harvester.check_affiliation_information_from_datacite(guid, output)
       unless fundingblock
         output.score = 'fail'
         output.comments << "FAIL: No affiliation found in datacite metadata.\n"

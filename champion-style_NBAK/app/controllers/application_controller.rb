@@ -9,7 +9,6 @@ require 'require_all'
 require 'jsonpath'
 require 'dotenv/load' unless ENV['RACK_ENV'] == 'production'
 require 'triple_easy'
-require 'fair_champion_harvester'
 
 require_rel './routes.rb'
 require_rel '../models'

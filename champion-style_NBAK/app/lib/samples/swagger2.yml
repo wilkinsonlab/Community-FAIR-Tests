@@ -1,0 +1,45 @@
+swagger: '2.0'
+info:
+ version: ''
+ title: ""
+ x-tests_metric: ''
+ description: >-
+   Tests metadata GUID for the ability to implement authentication and authorization in its resolution protocol.  Currently passes InChI Keys, DOIs, Handles, and URLs.  Recognition of other identifiers will be added upon request by the community.
+ x-applies_to_principle: "https://w3id.org/fair/principles/latest/A1.2"
+ contact:
+  x-organization: "OSTrails Project"
+  url: "https://ostrails.eu/"
+  name: 'Mark D Wilkinson'
+  x-role: "responsible developer"
+  email: mark.wilkinson@upm.es
+  x-id: 'https://orcid.org/0000-0001-6960-357X'
+host: localhost
+basePath: /tests
+schemes:
+  - https
+paths:
+ :
+  post:
+   parameters:
+    - name: content
+      in: body
+      required: true
+      schema:
+        $ref: '#/definitions/schemas'
+   consumes:
+     - application/json
+   produces:  
+     - application/json
+   responses:
+     "200":
+       description: >-
+        The response is "pass", "fail" or "indeterminate"
+definitions:
+  schemas:
+    required:
+     - subject
+    properties:
+        subject:
+          type: string
+          description: >-
+            the GUID being tested

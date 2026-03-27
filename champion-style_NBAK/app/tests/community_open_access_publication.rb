@@ -1,3 +1,5 @@
+require_relative File.dirname(__FILE__) + '/../lib/harvester.rb'
+
 class FAIRTest
   def self.community_open_access_publication_meta
     {
@@ -36,8 +38,8 @@ class FAIRTest
 
     output.comments << "INFO: TEST VERSION '#{community_open_access_publication_meta[:testversion]}'\n"
 
-    meta = FAIRChampionHarvester::MetadataObject.new
-    metadata = FAIRChampionHarvester::DOI.openalex_doi(guid, meta) # this is where the magic happens!
+    meta = FAIRChampion::MetadataObject.new
+    metadata = FAIRChampion::Harvester.openalex_doi(guid, meta) # this is where the magic happens!
 
     metadata.comments.each do |c|
       output.comments << c

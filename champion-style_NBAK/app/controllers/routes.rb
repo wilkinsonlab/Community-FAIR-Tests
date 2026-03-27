@@ -15,7 +15,7 @@ def set_routes(classes: [])
   get %r{/community-tests/?} do
     ts = Dir["#{File.dirname(__FILE__)}/../tests/*.rb"]
     @tests = ts.map { |t| t.match(%r{.*/(\S+)\.rb$})[1] } # This is just the final field in the URL
-    @labels, @lps = FAIRChampion::TestInfra.get_tests_metrics(tests: @tests) # the local URL is built in this routine, and called
+    @labels, @lps = FAIRChampion::Harvester.get_tests_metrics(tests: @tests) # the local URL is built in this routine, and called
     halt erb :listtests, layout: :listtests_layout
   end
 
@@ -101,3 +101,19 @@ def set_routes(classes: [])
     @result
   end
 end
+
+# get '/community-tests/fdpindex_tests/' do
+#   @testobjects = FAIRChampion::Index.retrieve_tests_from_index
+#   @labels = FAIRChampion::Index.get_metrics_labels_for_tests(tests: @testobjects)
+#   halt erb :listalltests, layout: :listtests_layout
+# end
+
+# get '/community-tests/new' do
+#   halt erb :newtest, layout: :newtest_layout
+# end
+
+# post '/community-tests/new' do
+#   test_uri = params['test_uri']
+#   @result = FAIRChampion::Tests.register_test(test_uri: test_uri)
+#   halt erb :newtest_output, layout: :newtest_layout
+# end

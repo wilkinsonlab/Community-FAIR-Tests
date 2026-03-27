@@ -1,3 +1,5 @@
+require_relative File.dirname(__FILE__) + '/../lib/harvester.rb'
+
 class FAIRTest
   def self.community_license_information_meta
     {
@@ -37,7 +39,7 @@ class FAIRTest
     output.comments << "INFO: TEST VERSION '#{community_license_information_meta[:testversion]}'\n"
 
     # meta = FAIRChampion::MetadataObject.new
-    metadata = FAIRChampionHarvester::Core.resolveit(guid) # this is where the magic happens!
+    metadata = FAIRChampion::Harvester.resolveit(guid) # this is where the magic happens!
 
     metadata.comments.each do |c|
       output.comments << c
@@ -57,7 +59,7 @@ class FAIRTest
     output.comments << "INFO: Now testing #{guid} for funder information\n"
 
     output.comments << "INFO: Now testing #{guid} for registration agency\n"
-    agency = FAIRChampionHarvester::DOI.resolve_doi_to_registration_agency(guid, output)
+    agency = FAIRChampion::Harvester.resolve_doi_to_registration_agency(guid, output)
     unless agency
       output.score = 'indeterminate'
       output.comments << "INDETERMINATE: The DOI was not a datacite or crossref DOI.\n"
@@ -67,7 +69,7 @@ class FAIRTest
     if agency == 'Crossref'
       output.comments << "INFO: Agency is Crossref\n"
       output.comments << "INFO: Checking for license block\n"
-      licenseblock = FAIRChampionHarvester::DOI.check_license_information_from_crossref(guid, output)
+      licenseblock = FAIRChampion::Harvester.check_license_information_from_crossref(guid, output)
       unless licenseblock
         output.score = 'fail'
         output.comments << "FAIL: No license found in crossref metadata.\n"
@@ -76,7 +78,7 @@ class FAIRTest
     elsif agency == 'DataCite'
       output.comments << "INFO: Agency is Datacite\n"
       output.comments << "INFO: Checking for license block\n"
-      licenseblock = FAIRChampionHarvester::DOI.check_license_information_from_datacite(guid, output)
+      licenseblock = FAIRChampion::Harvester.check_license_information_from_datacite(guid, output)
       unless licenseblock
         output.score = 'fail'
         output.comments << "FAIL: No license found in datacite metadata.\n"

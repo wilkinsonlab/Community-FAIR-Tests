@@ -1,0 +1,208 @@
+/* styles.css - Reusable across multiple pages */
+
+/* Reset defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+.container {
+  width: 100%;
+  max-width: 80rem; 
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: center; /* Center contents horizontally */
+  align-items: center; /* Keep vertical centering */
+  margin: 0; /* Remove margin-right to prevent offset */
+  width: 100%; /* Ensure header spans container width */
+}
+
+.header img {
+  width: 150px;
+  margin: 0 10px; /* Symmetrical margin for balanced centering */
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 22px;
+  text-align: center; /* Ensure text is centered if it wraps */
+}
+
+/* Rest of your stylesheet remains unchanged */
+.menu {
+  min-width: 500px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  margin-bottom: 20px;
+}
+
+/* ... other existing styles ... */
+.form-card {
+  justify-content: center; /* Center contents horizontally */
+  align-items: normal; 
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 50px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px; 
+  width: 100%; /* Ensure header spans container width */
+
+}
+.form-card h2 {
+  margin: 5px;
+  font-size: 18px;
+}
+.form-card h3 {
+  margin: 5px;
+  font-size: 16px;
+}
+
+.submit-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.submit-link:hover {
+  background-color: #0056b3;
+}
+/* Code block styling */
+.code-block {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.code-block p {
+  font-size: 1rem;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.code-block pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 15px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.form-card label {
+  font-weight: 500;
+}
+
+.form-card input[type="text"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 500px;
+}
+
+.form-card input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: fit-content;
+}
+
+.form-card input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.form-card .example {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 5px;
+}
+
+.submit-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.submit-link:hover {
+  background-color: #0056b3;
+}
+
+/* Table and list styling for output */
+.table {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 0.5rem;
+}
+
+.table th {
+  background-color: #e5e7eb;
+  text-align: left;
+}
+
+.list-group {
+  list-style: none;
+  padding: 0;
+}
+
+.list-group-item {
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.p-2 { padding: 0.5rem; }
+.w-full { width: 100%; }
+.bg-gray-200 { background-color: #e5e7eb; }
+.text-left { text-align: left; }
+section { overflow: hidden; } /* Prevents content overflow */

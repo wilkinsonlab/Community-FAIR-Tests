@@ -1,0 +1,32 @@
+<!-- views/layout.erb -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>FAIR Champion - Register New Test</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="/tests/css/styles.css"/>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <a href="/champion"><img src="/tests/champion_whitebgcrop.png" alt="FAIR Champion Logo"/></a>
+    <h2>Register New Test in OSTrails Test Registry</h2>
+  </div>
+</div>
+<header class="header">
+    <div class="code-block">
+      <p>Generic CURL command:</p>
+      <pre>
+  curl -v -L -H "content-type: application/json" 
+  -d '{"clientUrl": "https://my.domain.org/path/to/DCAT/testdcat.ttl"}' 
+  https://tools.ostrails.eu/fdp-index-proxy/proxy       </pre>
+    </div>
+</header>
+
+
+  <div class="container">
+    <%= yield %>
+  </div>
+</body>
+</html>

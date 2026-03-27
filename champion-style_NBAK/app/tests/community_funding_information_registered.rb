@@ -1,11 +1,13 @@
+require_relative File.dirname(__FILE__) + '/../lib/harvester.rb'
+
 class FAIRTest
-  def self.community_license_information_meta
+  def self.community_funding_information_registered_meta
     {
       testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.1',
-      testname: 'License information found in DOI metadata',
-      testid: 'community_license_information',
-      description: 'Test a DOI to determine if license information is available in the datacite or crossref metadata',
-      metric: 'https://w3id.org/fair-metrics/esrf/R1.1.LI-RA.DOI.ttl'.downcase, # TODO: UPDATE TO DOI WHEN rEADY
+      testname: 'Funding information registered in DOI metadata',
+      testid: 'community_funding_information_registered',
+      description: 'Test a DOI to determine if funder information is available in the datacite or crossref metadata',
+      metric: 'https://w3id.org/fair-metrics/esrf/R1.2.FUND.ttl'.downcase, # TODO: UPDATE TO DOI WHEN rEADY
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
@@ -26,18 +28,18 @@ class FAIRTest
     }
   end
 
-  def self.community_license_information(guid:)
+  def self.community_funding_information_registered(guid:)
     FAIRChampion::Output.clear_comments
 
     output = FAIRChampion::Output.new(
       testedGUID: guid,
-      meta: community_license_information_meta
+      meta: community_funding_information_registered_meta
     )
 
-    output.comments << "INFO: TEST VERSION '#{community_license_information_meta[:testversion]}'\n"
+    output.comments << "INFO: TEST VERSION '#{community_funding_information_registered_meta[:testversion]}'\n"
 
     # meta = FAIRChampion::MetadataObject.new
-    metadata = FAIRChampionHarvester::Core.resolveit(guid) # this is where the magic happens!
+    metadata = FAIRChampion::Harvester.resolveit(guid) # this is where the magic happens!
 
     metadata.comments.each do |c|
       output.comments << c
@@ -57,7 +59,7 @@ class FAIRTest
     output.comments << "INFO: Now testing #{guid} for funder information\n"
 
     output.comments << "INFO: Now testing #{guid} for registration agency\n"
-    agency = FAIRChampionHarvester::DOI.resolve_doi_to_registration_agency(guid, output)
+    agency = FAIRChampion::Harvester.resolve_doi_to_registration_agency(guid, output)
     unless agency
       output.score = 'indeterminate'
       output.comments << "INDETERMINATE: The DOI was not a datacite or crossref DOI.\n"
@@ -66,20 +68,20 @@ class FAIRTest
 
     if agency == 'Crossref'
       output.comments << "INFO: Agency is Crossref\n"
-      output.comments << "INFO: Checking for license block\n"
-      licenseblock = FAIRChampionHarvester::DOI.check_license_information_from_crossref(guid, output)
-      unless licenseblock
+      output.comments << "INFO: Checking for funding block\n"
+      fundingblock = FAIRChampion::Harvester.get_funding_information_from_crossref(guid, output)
+      unless fundingblock
         output.score = 'fail'
-        output.comments << "FAIL: No license found in crossref metadata.\n"
+        output.comments << "FAIL: No funder found in crossref metadata.\n"
         return output.createEvaluationResponse
       end
     elsif agency == 'DataCite'
       output.comments << "INFO: Agency is Datacite\n"
-      output.comments << "INFO: Checking for license block\n"
-      licenseblock = FAIRChampionHarvester::DOI.check_license_information_from_datacite(guid, output)
-      unless licenseblock
+      output.comments << "INFO: Checking for funding block\n"
+      fundingblock = FAIRChampion::Harvester.get_funding_information_from_datacite(guid, output)
+      unless fundingblock
         output.score = 'fail'
-        output.comments << "FAIL: No license found in datacite metadata.\n"
+        output.comments << "FAIL: No funder found in datacite metadata.\n"
         return output.createEvaluationResponse
       end
     else
@@ -90,17 +92,18 @@ class FAIRTest
     end
 
     output.score = 'pass'
-    output.comments << "PASS: License information is found\n"
+    output.comments << "PASS: Funding block is found\n"
     output.createEvaluationResponse
   end
 
-  def self.community_license_information_api
-    api = OpenAPI.new(meta: community_license_information_meta)
+  def self.community_funding_information_registered_api
+    api = OpenAPI.new(meta: community_funding_information_registered_meta)
     api.get_api
   end
 
-  def self.community_license_information_about
-    dcat = ChampionDCAT::DCAT_Record.new(meta: community_license_information_meta)
+  def self.community_funding_information_registered_about
+    # warn "META: #{community_funding_information_registered_meta.inspect}"
+    dcat = ChampionDCAT::DCAT_Record.new(meta: community_funding_information_registered_meta)
     dcat.get_dcat
   end
 end
