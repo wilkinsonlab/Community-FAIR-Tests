@@ -43,6 +43,7 @@ GEM
       unicode-types (~> 1.8)
     fair_champion_harvester (0.1.0)
     ffi (1.17.3-x86_64-linux-gnu)
+    ftr_ruby (0.1.2)
     haml (6.4.0)
       temple (>= 0.8.2)
       thor
@@ -339,6 +340,7 @@ DEPENDENCIES
   debase!
   dotenv (~> 2.8)
   fair_champion_harvester (~> 0.1.0)
+  ftr_ruby (~> 0.1.2)
   json (~> 2.7.1)
   json-canonicalization (~> 1.0.0)
   jsonpath (~> 1.1)

@@ -1,21 +1,21 @@
-require 'json' # ensure json stdlib is loaded
-require 'yaml'
-require 'erb'
-
 def set_routes(classes: [])
   set :server_settings, timeout: 180
   set :public_folder, File.join(__dir__, '../public')
   set :port, 8282
+  basepath = ENV.fetch('TEST_PATH')
+  abort 'TEST_PATH not set in environment - cannot continue' unless basepath
+  basepath = basepath.gsub(%r{^/}, '') # was frozen, so overwrite
+  basepath = basepath.gsub(%r{/$}, '')
 
   get '/' do
     content_type :json
     response.body = JSON.dump(Swagger::Blocks.build_root_json(classes))
   end
 
-  get %r{/community-tests/?} do
+  get %r{/#{basepath}/?} do
     ts = Dir["#{File.dirname(__FILE__)}/../tests/*.rb"]
     @tests = ts.map { |t| t.match(%r{.*/(\S+)\.rb$})[1] } # This is just the final field in the URL
-    @labels, @lps = FAIRChampion::TestInfra.get_tests_metrics(tests: @tests) # the local URL is built in this routine, and called
+    @labels, @lps = FtrRuby::TestInfra.get_tests_metrics(tests: @tests) # the local URL is built in this routine, and called
     halt erb :listtests, layout: :listtests_layout
   end
 
@@ -24,7 +24,7 @@ def set_routes(classes: [])
   # # prefix 'community-tests' comes from basePath in the environment
   # then endpointPath in the DCAT is created by appending /assess/test/ to that, followed by ID
   # # we should do the same in the core tests
-  post '/community-tests/assess/test/:id' do
+  post "/#{basepath}/assess/test/:id" do
     content_type :json
     id = params[:id]
     guid = ''
@@ -60,8 +60,8 @@ def set_routes(classes: [])
   # ============================= GET ----
   # ============================= GET ----
 
-  get '/community-tests/:id' do # returns DCAT
-    warn "get '/community-tests/:id'"
+  get "/#{basepath}/:id" do # returns DCAT
+    warn "get '/#{basepath}/:id'"
     id = params[:id]
     idabout = "#{id}_about"
     begin
@@ -89,7 +89,7 @@ def set_routes(classes: [])
     end
   end
 
-  get '/community-tests/:id/api' do # return swagger
+  get "/#{basepath}/:id/api" do # return swagger
     content_type 'application/openapi+yaml'
     id = params[:id]
     idapi = id + '_api'

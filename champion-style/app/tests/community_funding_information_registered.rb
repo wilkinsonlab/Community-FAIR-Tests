@@ -27,9 +27,9 @@ class FAIRTest
   end
 
   def self.community_funding_information_registered(guid:)
-    FAIRChampion::Output.clear_comments
+    FtrRuby::Output.clear_comments
 
-    output = FAIRChampion::Output.new(
+    output = FtrRuby::Output.new(
       testedGUID: guid,
       meta: community_funding_information_registered_meta
     )
@@ -95,13 +95,13 @@ class FAIRTest
   end
 
   def self.community_funding_information_registered_api
-    api = OpenAPI.new(meta: community_funding_information_registered_meta)
+    api = FtrRuby::OpenAPI.new(meta: community_funding_information_registered_meta)
     api.get_api
   end
 
   def self.community_funding_information_registered_about
     # warn "META: #{community_funding_information_registered_meta.inspect}"
-    dcat = ChampionDCAT::DCAT_Record.new(meta: community_funding_information_registered_meta)
+    dcat = FtrRuby::DCAT_Record.new(meta: community_funding_information_registered_meta)
     dcat.get_dcat
   end
 end

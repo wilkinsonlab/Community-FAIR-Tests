@@ -27,16 +27,15 @@ class FAIRTest
   end
 
   def self.community_license_information(guid:)
-    FAIRChampion::Output.clear_comments
+    FtrRuby::Output.clear_comments
 
-    output = FAIRChampion::Output.new(
+    output = FtrRuby::Output.new(
       testedGUID: guid,
       meta: community_license_information_meta
     )
 
     output.comments << "INFO: TEST VERSION '#{community_license_information_meta[:testversion]}'\n"
 
-    # meta = FAIRChampion::MetadataObject.new
     metadata = FAIRChampionHarvester::Core.resolveit(guid) # this is where the magic happens!
 
     metadata.comments.each do |c|
@@ -95,12 +94,12 @@ class FAIRTest
   end
 
   def self.community_license_information_api
-    api = OpenAPI.new(meta: community_license_information_meta)
+    api = FtrRuby::OpenAPI.new(meta: community_license_information_meta)
     api.get_api
   end
 
   def self.community_license_information_about
-    dcat = ChampionDCAT::DCAT_Record.new(meta: community_license_information_meta)
+    dcat = FtrRuby::DCAT_Record.new(meta: community_license_information_meta)
     dcat.get_dcat
   end
 end

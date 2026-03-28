@@ -72,7 +72,7 @@
                   <span style="color: #ff7700;"><%= line %></span><br/>
                 <% elsif line.start_with?('FAILURE') %>
                   <span style="color: #ff0000;"><%= line %></span><br/>
-                <% elsif line.start_with?('SUCCESS') %>
+                <% elsif line.start_with?('SUCCESS') or line.start_with?('PASS') %>
                   <span style="color: #00cc00;"><%= line %></span><br/>
                 <% else %>
                   <%= line %><br/>

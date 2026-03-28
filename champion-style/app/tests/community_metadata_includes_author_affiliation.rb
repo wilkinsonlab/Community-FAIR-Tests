@@ -27,9 +27,9 @@ class FAIRTest
   end
 
   def self.community_metadata_includes_author_affiliation(guid:)
-    FAIRChampion::Output.clear_comments
+    FtrRuby::Output.clear_comments
 
-    output = FAIRChampion::Output.new(
+    output = FtrRuby::Output.new(
       testedGUID: guid,
       meta: community_metadata_includes_author_affiliation_meta
     )
@@ -110,12 +110,12 @@ class FAIRTest
   end
 
   def self.community_metadata_includes_author_affiliation_api
-    api = OpenAPI.new(meta: community_metadata_includes_author_affiliation_meta)
+    api = FtrRuby::OpenAPI.new(meta: community_metadata_includes_author_affiliation_meta)
     api.get_api
   end
 
   def self.community_metadata_includes_author_affiliation_about
-    dcat = ChampionDCAT::DCAT_Record.new(meta: community_metadata_includes_author_affiliation_meta)
+    dcat = FtrRuby::DCAT_Record.new(meta: community_metadata_includes_author_affiliation_meta)
     dcat.get_dcat
   end
 end

@@ -27,9 +27,9 @@ class FAIRTest
   end
 
   def self.community_open_access_publication(guid:)
-    FAIRChampion::Output.clear_comments
+    FtrRuby::Output.clear_comments
 
-    output = FAIRChampion::Output.new(
+    output = FtrRuby::Output.new(
       testedGUID: guid,
       meta: community_open_access_publication_meta
     )
@@ -67,12 +67,12 @@ class FAIRTest
   end
 
   def self.community_open_access_publication_api
-    api = OpenAPI.new(meta: community_open_access_publication_meta)
+    api = FtrRuby::OpenAPI.new(meta: community_open_access_publication_meta)
     api.get_api
   end
 
   def self.community_open_access_publication_about
-    dcat = ChampionDCAT::DCAT_Record.new(meta: community_open_access_publication_meta)
+    dcat = FtrRuby::DCAT_Record.new(meta: community_open_access_publication_meta)
     dcat.get_dcat
   end
 end

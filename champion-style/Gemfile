@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '~> 3.2'
+ruby '~> 3.2.0'
 gemspec
 gem 'bcrypt'
 gem 'connection_pool', '~> 2.4', '< 3.0'
@@ -28,6 +28,13 @@ gem 'sinatra-cross_origin'
 gem 'swagger-blocks', '~> 3.0.0'
 gem 'xml-simple', '~> 1.1.8'
 
+gem 'base64', '~> 0.3.0'
+
+gem 'triple_easy', '~> 0.1.0'
+
+gem 'fair_champion_harvester', '~> 0.1.0'
+gem 'ftr_ruby', '~>0.1.2'
+
 group :development, :test do
   gem 'dotenv', '~> 2.8' # Add dotenv for local environment variables
 end
@@ -38,8 +45,3 @@ group :test do
   gem 'simplecov', '~> 0.22.0', require: false
   gem 'webmock', '~> 3.18'
 end
-gem 'base64', '~> 0.3.0'
-
-gem "triple_easy", "~> 0.1.0"
-
-gem "fair_champion_harvester", "~> 0.1.0"
