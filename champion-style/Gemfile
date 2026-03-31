@@ -32,8 +32,8 @@ gem 'base64', '~> 0.3.0'
 
 gem 'triple_easy', '~> 0.1.0'
 
-gem 'fair_champion_harvester', '~> 0.1.0'
-gem 'ftr_ruby', '~>0.1.5'
+gem 'fair_champion_harvester', '~> 0.1.5'
+gem 'ftr_ruby', '~>0.1.7'
 
 group :development, :test do
   gem 'dotenv', '~> 2.8' # Add dotenv for local environment variables

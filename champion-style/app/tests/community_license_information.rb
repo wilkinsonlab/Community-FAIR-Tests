@@ -5,7 +5,7 @@ class FAIRTest
       testname: 'License information found in DOI metadata',
       testid: 'community_license_information',
       description: 'Test a DOI to determine if license information is available in the datacite or crossref metadata',
-      metric: 'https://w3id.org/fair-metrics/esrf/R1.1.LI-RA.DOI.ttl'.downcase, # TODO: UPDATE TO DOI WHEN rEADY
+      metric: 'https://w3id.org/fair-metrics/esrf/FM_R1-1_M_DOI_Lic_ESRF', # TODO: UPDATE TO DOI WHEN rEADY
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',

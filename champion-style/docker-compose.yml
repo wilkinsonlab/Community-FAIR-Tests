@@ -2,17 +2,17 @@ version: "3"
 services:
 
   communitytests: 
-    image: markw/community-fair-tests:0.0.1
+    image: markw/community-fair-tests:0.1.1
     container_name: communitytests
     environment:
-      TEST_PROTOCOL: https
-      TEST_HOST: "tests.ostrails.eu" # from the perspective of the evaluator container
+      TEST_PROTOCOL: http
+      TEST_HOST: "localhost:8282" 
       TEST_PATH: /community-tests/     # becomes http://tests:8080/tests/test_name_here
       FAIRSHARING_KEY: your_fairsharing_key_here
       BING_API: your_bing_api_key_here
-    ports:
-      - "8181:8282"
-
+#    ports:
+#      - "8181:8282"
+    network_mode: "host"
   tika:
     image: apache/tika:1.23
     container_name: evaluator-tika

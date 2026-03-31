@@ -5,7 +5,7 @@ class FAIRTest
       testname: 'Funding information registered in DOI metadata',
       testid: 'community_funding_information_registered',
       description: 'Test a DOI to determine if funder information is available in the datacite or crossref metadata',
-      metric: 'https://w3id.org/fair-metrics/esrf/R1.2.FUND.ttl'.downcase, # TODO: UPDATE TO DOI WHEN rEADY
+      metric: 'https://w3id.org/fair-metrics/esrf/FM_R1-2_M_Fund_ESRF',
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
