@@ -2,7 +2,7 @@
 <% @tests.each do |t| %>
   <% testname = t.to_s %>
   <div class="form-card">
-    <form action="/assess/test/<%= testname %>" method="post">
+    <form action="/<%= @basepath %>/assess/test/<%= testname %>" method="post">
       <label for="resource_identifier_<%= testname %>"><%= testname %></label>
       <input type="text" name="resource_identifier" id="resource_identifier_<%= testname %>" placeholder="e.g., https://example.org/dataset">
       <div>

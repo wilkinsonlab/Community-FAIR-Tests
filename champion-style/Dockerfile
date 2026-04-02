@@ -33,7 +33,11 @@ RUN gem update --system \
 
 # Install gems first (cache layer — only rebuild if Gemfile changes)
 COPY Gemfile Gemfile.lock community-fair-tests.gemspec ./
-RUN bundle install --jobs 4 --retry 3
+
+# Clean any previous partial installs + install
+RUN rm -rf /usr/local/bundle/gems/debase-ruby_core_source* \
+           /usr/local/bundle/specifications/debase-ruby_core_source* \
+    && bundle install --jobs 4 --retry 3
 
 # Copy the rest of the application code
 COPY . .
