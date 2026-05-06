@@ -42,7 +42,7 @@ class FAIRTest
     end
 
     meta = FAIRChampionHarvester::MetadataObject.new
-    metadata = FAIRChampionHarvester::DOI.openalex_doi(guid, meta) # this is where the magic happens!
+    metadata = FAIRChampionHarvester::OpenAlex.openalex_doi(guid, meta)
 
     metadata.comments.each do |c|
       output.comments << c
