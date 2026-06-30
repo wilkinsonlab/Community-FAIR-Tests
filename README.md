@@ -1,3 +1,6 @@
+[![CI Pipeline](https://github.com/wilkinsonlab/Community-FAIR-Tests/actions/workflows/ci.yml/badge.svg)](https://github.com/wilkinsonlab/Community-FAIR-Tests/actions/workflows/ci.yml)
+
+
 # Community-FAIR-Tests
 A repository for the code and metadata for domain-specific or DO-specific FAIR tests
 
