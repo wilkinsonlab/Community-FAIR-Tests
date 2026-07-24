@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.2.7] - 2026-07-24
+
+### Changed
+
+- `dv_portugal_dv_controlled_vocabulariese`: implemented the PT Dataverse controlled-vocabulary keyword check (previously a placeholder copy-pasted from `dv_portugal_minimal_datacite`). Rather than a second Dataverse-specific HTTP fetch, the test scans `metadata.full_response` — the raw HTTP bodies the generic harvester already collected while resolving the DOI — for the Dataverse landing page's `#metadata_keyword` metadata-tab table row (the schema.org/JSON-LD block only exposes keywords as a flat string list, with no vocabulary info). Parses each keyword entry into Term / Term URI / Controlled Vocabulary Name / Controlled Vocabulary URL. Passes if at least one keyword carries both a vocabulary name and URL; Term URI is reported when present but not required for a pass, since real-world PT Dataverse records (including the community's own positive example) rarely populate it.
+
+## [0.2.6] - 2026-07-24
+
+### Changed
+
+- `dv_portugal_minimal_datacite`: replaced the placeholder funding-block test (copy-pasted from `community_metadata_includes_author_affiliation`) with the actual PT Dataverse minimal provenance check. The test now resolves the DOI's registration agency, requires DataCite (indeterminate otherwise), then content-negotiates the DOI itself for `application/vnd.datacite.datacite+xml` and checks for creator, contributor, contributor role, date of collection (`dateType="Created"`), deposit date (`dateType="Submitted"`), publication date (`publicationYear`), and grant information (`fundingReferences`). Fails listing any missing elements rather than a single pass/fail funding check.
+
 ## [0.2.5] - 2026-06-30
 
 ### Changed
