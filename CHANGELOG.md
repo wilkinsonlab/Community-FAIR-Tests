@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.8] - 2026-08-05
+
+### Fixed
+
+- Bumped `fair_champion_harvester` to `~> 0.1.16`. 0.1.15 adds a hard timeout to the external `extruct` subprocess `Extruct.do_extruct` shells out to: without it, a request whose content-type/magic-bytes didn't get caught as binary (unreliable headers, or just very large/slow HTML) could block a Puma worker thread — and leak an orphaned Python process — indefinitely, since `worker_timeout` only restarts a worker whose *every* thread has stopped responding. This was the primary driver of repeated multi-hour outages on `tests.ostrails.eu` (load average 40-50, multiple runaway `python3 extruct` processes, 68 zombie processes observed during one incident) — this container runs on the same host. 0.1.16 additionally syncs the `HARVESTER_VERSION` string embedded in every test's `testversion` output, which had drifted out of sync with the gem version.
+
 ## [0.2.7] - 2026-07-24
 
 ### Changed
