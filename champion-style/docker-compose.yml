@@ -2,7 +2,7 @@ version: "3"
 services:
 
   communitytests: 
-    image: markw/community-fair-tests:0.2.7
+    image: markw/community-fair-tests:0.2.8
     container_name: communitytests
     environment:
       TEST_PROTOCOL: http
