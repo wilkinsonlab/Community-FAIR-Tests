@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.9] - 2026-08-11
+
+### Fixed
+
+- Bumped `fair_champion_harvester` to `~> 0.1.17`, which adds a TTL and a `Cache.purge` method to the harvester's `/tmp` file cache. Previously that cache never expired — once a record was written under `/tmp`, it was returned forever, since `/tmp` inside this container isn't a persistent volume and the only way to clear a stale entry was a full container restart or manually deleting files over SSH. Default TTL is 5 minutes (`CACHE_TTL` env var), short by design since harvested DCAT/TTL records under test change frequently and testers need to see edits reflected quickly.
+
 ## [0.2.8] - 2026-08-05
 
 ### Fixed
