@@ -1,7 +1,7 @@
 class FAIRTest
   def self.erdera_core_vp_metadata_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.1',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
       testname: 'ERDERA: Minimal VP Metadata for Level 1 Compliance',
       testid: 'erdera_core_vp_metadata',
       description: "The ERDERA Project has strict requirements for minimal metadata to onboard their Virtual Platform.
@@ -54,7 +54,7 @@ class FAIRTest
       return output.createEvaluationResponse
     end
 
-    output.comments << "INFO: Now testing #{guid} for funder information\n"
+    output.comments << "INFO: Now testing #{guid} for deprecated predicates\n"
 
     g = metadata.graph
     prefixes = "PREFIX dcat: <http://www.w3.org/ns/dcat#>
