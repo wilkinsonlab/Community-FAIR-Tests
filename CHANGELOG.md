@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.10] - 2026-09-04
+
+### Changed
+
+- `community_panet_vocabulary_in_metadata`: added additional valid ways for a DataCite subject to be recognized as PaNET, per community feedback on #12. Previously only `subjects[].schemeUri` or `subjects[].subjectScheme` containing the literal string "PaNET" counted; now `subjects[].schemeUri` or `subjects[].valueUri` containing the PaNET namespace `https://w3id.org/PaN/` also counts. This fixes false negatives for real-world records like ESRF's `10.15151/esrf-es-2494098874`, whose subjects use `schemeUri: "https://w3id.org/PaN/ESRFET/"` without the string "PaNET" anywhere in it. Bumped test version to `Tst-0.0.3`.
+
 ## [0.2.9] - 2026-08-11
 
 ### Fixed

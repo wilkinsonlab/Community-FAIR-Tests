@@ -3,10 +3,10 @@
 class FAIRTest
   def self.community_panet_vocabulary_in_metadata_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
       testname: 'FAIR Test - I2 - Dataset - DOI metadata contains a link to a community ontology term - PaNET',
       testid: 'community_panet_vocabulary_in_metadata',
-      description: ' This metric ensures that the research object provided by the supplied URL is associated with a DataCite DOI whose metadata contains a PaNET subject term. This means that the DataCite metadata for the research object’s DOI must define a subject from PaNET using schemeUri or subjectScheme. The supplied URL can be one of: a doi.org domain URL or a DOI target repository domain URL.',
+      description: ' This metric ensures that the research object provided by the supplied URL is associated with a DataCite DOI whose metadata contains a PaNET subject term. This means that the DataCite metadata for the research object’s DOI must define a subject from PaNET using schemeUri or subjectScheme, or using a schemeUri or valueUri under the PaNET namespace "https://w3id.org/PaN/". The supplied URL can be one of: a doi.org domain URL or a DOI target repository domain URL.',
       metric: 'https://w3id.org/fair-metrics/esrf/FM_I2_M_VOC-PANET_DOI_ESRF',
       indicators: 'https://doi.org/10.25504/FAIRsharing.96d4af',
       type: 'http://edamontology.org/operation_2428',
@@ -94,9 +94,14 @@ class FAIRTest
     dcat.get_dcat
   end
 
+  PANET_NAMESPACE = 'https://w3id.org/PaN/'.freeze
+
   # ---------------------------------------------------------------------------
-  # Fetch DataCite metadata and return the first subject whose schemeUri or
-  # subjectScheme contains the string "PaNET", or nil if none is found.
+  # Fetch DataCite metadata and return the first subject that identifies as
+  # PaNET, or nil if none is found. A subject counts as PaNET if either:
+  #   - schemeUri or subjectScheme contains the string "PaNET", or
+  #   - schemeUri or valueUri contains the PaNET namespace
+  #     "https://w3id.org/PaN/"
   # ---------------------------------------------------------------------------
   def self.fetch_panet_subject_from_datacite(doi, meta)
     url = "https://api.datacite.org/dois/#{doi.downcase.strip}"
@@ -112,11 +117,16 @@ class FAIRTest
 
     data = JSON.parse(body)
     subjects = data.dig('data', 'attributes', 'subjects') || []
-    subjects.find do |s|
-      s['schemeUri'].to_s.include?('PaNET') || s['subjectScheme'].to_s.include?('PaNET')
-    end
+    subjects.find { |s| panet_subject?(s) }
   rescue JSON::ParserError => e
     meta.comments << "WARN: JSON parse error from DataCite: #{e.message}\n"
     nil
+  end
+
+  def self.panet_subject?(subject)
+    subject['schemeUri'].to_s.include?('PaNET') ||
+      subject['subjectScheme'].to_s.include?('PaNET') ||
+      subject['schemeUri'].to_s.include?(PANET_NAMESPACE) ||
+      subject['valueUri'].to_s.include?(PANET_NAMESPACE)
   end
 end
