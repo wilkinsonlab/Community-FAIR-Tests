@@ -3,7 +3,7 @@
 class FAIRTest
   def self.community_panet_vocabulary_in_metadata_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.4',
       testname: 'FAIR Test - I2 - Dataset - DOI metadata contains a link to a community ontology term - PaNET',
       testid: 'community_panet_vocabulary_in_metadata',
       description: ' This metric ensures that the research object provided by the supplied URL is associated with a DataCite DOI whose metadata contains a PaNET subject term. This means that the DataCite metadata for the research object’s DOI must define a subject from PaNET using schemeUri or subjectScheme, or using a schemeUri or valueUri under the PaNET namespace "https://w3id.org/PaN/". The supplied URL can be one of: a doi.org domain URL or a DOI target repository domain URL.',
@@ -37,9 +37,9 @@ class FAIRTest
     output.comments << "INFO: TEST VERSION '#{community_panet_vocabulary_in_metadata_meta[:testversion]}'\n"
 
     guid = guid.strip
-    if guid.match(%r{https?://[^/]+/(.*)})
+    if guid.match(%r{\Ahttps?://(dx\.)?doi\.org/(.+)\z}i)
       output.comments << "INFO: incoming guid stripped to be a raw DOI\n"
-      guid = ::Regexp.last_match(1)
+      guid = ::Regexp.last_match(2)
     end
 
     output = FtrRuby::Output.new(

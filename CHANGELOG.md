@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.12] - 2026-09-16
+
+### Changed
+
+- Standardized DOI-URL handling across all DOI-aware tests (`community_license_information`, `community_metadata_includes_author_affiliation`, `community_panet_vocabulary_in_metadata`, `community_open_access_publication`, `dv_portugal_minimal_datacite`, `dv_portugal_dv_controlled_vocabularies`): the incoming guid is now stripped down to a bare DOI only when it is specifically a `doi.org` URL, matching the fix already applied to `community_funding_information_registered` in the previous release. Previously each of these tests stripped *any* URL-shaped guid down to its path, which (a) silently mangled non-DOI URLs before resolution, and (b) meant that submitting a DOI as a bare string versus as a `https://doi.org/...` URL could take different code paths through the harvester and produce different results for the same underlying identifier. Both forms of a DOI now always resolve identically. Bumped test versions accordingly.
+
 ## [0.2.11] - 2026-09-16
 
 ### Changed

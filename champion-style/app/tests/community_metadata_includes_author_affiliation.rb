@@ -1,7 +1,7 @@
 class FAIRTest
   def self.community_metadata_includes_author_affiliation_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
       testname: 'Metadata includes author affiliation',
       testid: 'community_metadata_includes_author_affiliation',
       description: 'Use Crossref and Datacite APIs to scan a metadata record for author affiliation. Also check landing page for citation_author_institution meta property',
@@ -37,9 +37,9 @@ class FAIRTest
     output.comments << "INFO: TEST VERSION '#{community_metadata_includes_author_affiliation_meta[:testversion]}'\n"
 
     guid = guid.strip
-    if guid.match(%r{https?://[^/]+/(.*)})
+    if guid.match(%r{\Ahttps?://(dx\.)?doi\.org/(.+)\z}i)
       output.comments << "INFO: incoming guid stripped to be a raw DOI'\n"
-      guid = ::Regexp.last_match(1)
+      guid = ::Regexp.last_match(2)
     end
 
     # meta = FAIRChampion::MetadataObject.new

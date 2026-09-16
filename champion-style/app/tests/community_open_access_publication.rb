@@ -1,7 +1,7 @@
 class FAIRTest
   def self.community_open_access_publication_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
       testname: 'Resource is Open-Access output',
       testid: 'community_open_access_publication',
       description: 'Test a DOI against OpenAlex to determine if the resource output is open-access',
@@ -36,9 +36,9 @@ class FAIRTest
     output.comments << "INFO: TEST VERSION '#{community_open_access_publication_meta[:testversion]}'\n"
 
     guid = guid.strip
-    if guid.match(%r{https?://[^/]+/(.*)})
+    if guid.match(%r{\Ahttps?://(dx\.)?doi\.org/(.+)\z}i)
       output.comments << "INFO: incoming guid stripped to be a raw DOI'\n"
-      guid = ::Regexp.last_match(1)
+      guid = ::Regexp.last_match(2)
     end
 
     meta = FAIRChampionHarvester::MetadataObject.new

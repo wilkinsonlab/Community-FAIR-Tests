@@ -1,7 +1,7 @@
 class FAIRTest
   def self.dv_portugal_minimal_datacite_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
       testname: 'Dataverse Portugal Minimal Datacite Provenance Metadata',
       testid: 'dv_portugal_minimal_datacite',
       description: 'The PT Dataverse data provenance test evaluates compliance with the minimum metadata requirements established by the PT Dataverse community. FM_R1-2_M_PtDataProv metric expects a repository DOI and evaluates the digital object for the presence of mandatory attributes required for a passing score.
@@ -45,9 +45,9 @@ The evaluation of this principle is relevant to the PT Dataverse community becau
     output.comments << "INFO: TEST VERSION '#{dv_portugal_minimal_datacite_meta[:testversion]}'\n"
 
     guid = guid.strip
-    if guid.match(%r{https?://[^/]+/(.*)})
+    if guid.match(%r{\Ahttps?://(dx\.)?doi\.org/(.+)\z}i)
       output.comments << "INFO: incoming guid stripped to be a raw DOI'\n"
-      guid = ::Regexp.last_match(1)
+      guid = ::Regexp.last_match(2)
     end
 
     output = FtrRuby::Output.new(

@@ -1,7 +1,7 @@
 class FAIRTest
   def self.dv_portugal_dv_controlled_vocabularies_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
       testname: 'Dataverse Portugal Uses Dataverse Controlled Vocabularies',
       testid: 'dv_portugal_dv_controlled_vocabularies',
       description: 'The PT Dataverse controlled vocabularies metric evaluates compliance with the minimum domain relevant requirements established by the PT Dataverse community. The FM_R1-3_M_PtDataContVoc metric expects the use of a controlled vocabulary for the keywords metadata field, including the reference to the Term (a key term that describes important aspects of the dataset), Term URI (a URI that points to the web presence of the keyword term), Controlled Vocabulary Name (the controlled vocabulary used for the keyword term) and Controlled Vocabulary URL (the URL where one can access information about the term’s controlled vocabulary).
@@ -37,9 +37,9 @@ The evaluation of this principle is relevant to the PT Dataverse community as it
     output.comments << "INFO: TEST VERSION '#{dv_portugal_dv_controlled_vocabularies_meta[:testversion]}'\n"
 
     guid = guid.strip
-    if guid.match(%r{https?://[^/]+/(.*)})
+    if guid.match(%r{\Ahttps?://(dx\.)?doi\.org/(.+)\z}i)
       output.comments << "INFO: incoming guid stripped to be a raw DOI'\n"
-      guid = ::Regexp.last_match(1)
+      guid = ::Regexp.last_match(2)
     end
 
     output = FtrRuby::Output.new(

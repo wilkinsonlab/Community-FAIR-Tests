@@ -1,7 +1,7 @@
 class FAIRTest
   def self.community_license_information_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
       testname: 'License information found in DOI metadata',
       testid: 'community_license_information',
       description: 'Test a DOI to determine if license information is available in the datacite or crossref metadata',
@@ -37,9 +37,9 @@ class FAIRTest
     output.comments << "INFO: TEST VERSION '#{community_license_information_meta[:testversion]}'\n"
 
     guid = guid.strip
-    if guid.match(%r{https?://[^/]+/(.*)})
+    if guid.match(%r{\Ahttps?://(dx\.)?doi\.org/(.+)\z}i)
       output.comments << "INFO: incoming guid stripped to be a raw DOI'\n"
-      guid = ::Regexp.last_match(1)
+      guid = ::Regexp.last_match(2)
     end
 
     metadata = FAIRChampionHarvester::Core.resolveit(guid) # this is where the magic happens!
