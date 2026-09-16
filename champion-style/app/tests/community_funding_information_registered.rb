@@ -1,10 +1,13 @@
 class FAIRTest
   def self.community_funding_information_registered_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
-      testname: 'Funding information registered in DOI metadata',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
+      testname: 'Funding information registered in metadata',
       testid: 'community_funding_information_registered',
-      description: 'Test a DOI to determine if funder information is available in the datacite or crossref metadata',
+      description: 'Test a GUID to determine if funder information is available. For DOIs, checks the
+                    datacite or crossref metadata. For any GUID, also checks the harvested metadata graph
+                    (e.g. an embedded schema.org JSON-LD snippet on the landing page) for a schema:funding
+                    property.',
       metric: 'https://w3id.org/fair-metrics/esrf/FM_R1-2_M_Fund_ESRF',
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
@@ -36,10 +39,11 @@ class FAIRTest
     output.comments << "INFO: TEST VERSION '#{community_funding_information_registered_meta[:testversion]}'\n"
 
     guid = guid.strip
-    if guid.match(%r{https?://[^/]+/(.*)})
+    if guid.match(%r{\Ahttps?://(dx\.)?doi\.org/(.+)\z}i)
       output.comments << "INFO: incoming guid stripped to be a raw DOI'\n"
-      guid = ::Regexp.last_match(1)
+      guid = ::Regexp.last_match(2)
     end
+    doi = guid if guid.match(FAIRChampionHarvester::Utils::GUID_TYPES['doi'])
 
     output = FtrRuby::Output.new(
       testedGUID: guid,
@@ -58,16 +62,22 @@ class FAIRTest
       output.comments << "INDETERMINATE: The identifier #{guid} did not match any known identification system.\n"
       return output.createEvaluationResponse
     end
-    unless metadata.guidtype == 'doi'
-      output.score = 'indeterminate'
-      output.comments << "INDETERMINATE: The identifier #{guid} was not a doi.\n"
+
+    output.comments << "INFO: Now testing #{guid} for funder information in the harvested metadata graph\n"
+    if schema_org_funding_found?(metadata.graph, output)
+      output.score = 'pass'
+      output.comments << "PASS: A schema:funding property was found in the harvested metadata.\n"
       return output.createEvaluationResponse
     end
 
-    output.comments << "INFO: Now testing #{guid} for funder information\n"
+    unless doi
+      output.score = 'fail'
+      output.comments << "FAIL: No funder info found, and #{guid} isn't a DOI, so datacite/crossref don't apply.\n"
+      return output.createEvaluationResponse
+    end
 
-    output.comments << "INFO: Now testing #{guid} for registration agency\n"
-    agency = FAIRChampionHarvester::DOI.resolve_doi_to_registration_agency(guid, output)
+    output.comments << "INFO: Now testing #{doi} for registration agency\n"
+    agency = FAIRChampionHarvester::DOI.resolve_doi_to_registration_agency(doi, output)
     unless agency
       output.score = 'indeterminate'
       output.comments << "INDETERMINATE: The DOI was not a datacite or crossref DOI.\n"
@@ -77,7 +87,7 @@ class FAIRTest
     if agency == 'Crossref'
       output.comments << "INFO: Agency is Crossref\n"
       output.comments << "INFO: Checking for funding block\n"
-      fundingblock = FAIRChampionHarvester::DOI.get_funding_information_from_crossref(guid, output)
+      fundingblock = FAIRChampionHarvester::DOI.get_funding_information_from_crossref(doi, output)
       unless fundingblock
         output.score = 'fail'
         output.comments << "FAIL: No funder found in crossref metadata.\n"
@@ -86,7 +96,7 @@ class FAIRTest
     elsif agency == 'DataCite'
       output.comments << "INFO: Agency is Datacite\n"
       output.comments << "INFO: Checking for funding block\n"
-      fundingblock = FAIRChampionHarvester::DOI.get_funding_information_from_datacite(guid, output)
+      fundingblock = FAIRChampionHarvester::DOI.get_funding_information_from_datacite(doi, output)
       unless fundingblock
         output.score = 'fail'
         output.comments << "FAIL: No funder found in datacite metadata.\n"
@@ -102,6 +112,29 @@ class FAIRTest
     output.score = 'pass'
     output.comments << "PASS: Funding block is found\n"
     output.createEvaluationResponse
+  end
+
+  # ---------------------------------------------------------------------------
+  # True if the harvested metadata graph contains a schema:funding triple,
+  # under either the http or https form of the schema.org namespace.
+  # ---------------------------------------------------------------------------
+  def self.schema_org_funding_found?(graph, output)
+    return false unless graph
+
+    query = SPARQL.parse('
+      PREFIX schema_http: <http://schema.org/>
+      PREFIX schema_https: <https://schema.org/>
+      SELECT ?s ?o WHERE {
+        { ?s schema_http:funding ?o } UNION { ?s schema_https:funding ?o }
+      }')
+    results = query.execute(graph)
+    if results.any?
+      output.comments << "INFO: Found a schema:funding triple in the harvested metadata graph.\n"
+      true
+    else
+      output.comments << "INFO: No schema:funding triple was found in the harvested metadata graph.\n"
+      false
+    end
   end
 
   def self.community_funding_information_registered_api

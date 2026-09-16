@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.11] - 2026-09-16
+
+### Changed
+
+- `community_funding_information_registered`: per #17, the test now also checks the harvested metadata graph (`metadata.graph`) for a `schema:funding` triple, under either the `http://schema.org/` or `https://schema.org/` namespace, e.g. an embedded JSON-LD snippet on the landing page. This runs regardless of GUID type, so non-DOI GUIDs (previously always "indeterminate") now get a real pass/fail. The DataCite/Crossref check remains as a DOI-only fallback when no schema.org funding metadata is found. Also fixed a latent bug where the guid-to-raw-DOI stripping logic matched *any* URL, not just `doi.org` URLs — this silently mangled non-DOI GUIDs like `https://ora.ox.ac.uk/objects/uuid:...` into a bare path before resolution, causing them to be misidentified. Bumped test version to `Tst-0.0.3`.
+
 ## [0.2.10] - 2026-09-04
 
 ### Changed
