@@ -2,7 +2,18 @@
 
 
 
-## [0.5.12] - 2026-09-30
+## [0.2.14] - 2026-11-18
+
+### Added
+
+- `dabar_author_orcid_or_mbz`: new community test for metric `FM_R1.2_M_ORCID_MBZ` (FAIR Metric – R1.2 – Metadata – ORCID or MBZ identifiers for people), per #21. The test collects DataCite authors (`datacite:creator`) from two sources: the `oai_datacite` record that the harvester now picks up from a repository's OAI-PMH endpoint (e.g. FULIR / DABAR), and, for DataCite DOIs, the DataCite XML returned by content negotiation on the DOI. For each author it checks `nameIdentifier` (by `nameIdentifierScheme`) and `creatorIdentifier` (by `identifierType` or `scheme`), and accepts a non-empty value whose scheme is `ORCID` or `MBZ`. Each author's identifiers, or the lack of them, are written to the test comments. Pass if at least one author has an ORCID or MBZ, as the metric definition states; fail if authors are found but none has one; indeterminate if no DataCite metadata with identifiable authors can be retrieved (e.g. a Crossref DOI, or a landing page with no discoverable OAI-PMH `oai_datacite` record). Verified against the issue's example record, given as either its URN (`https://urn.nsk.hr/urn:nbn:hr:241:219629`) or its landing page (`https://data.fulir.irb.hr/object/irb:906`); both pass, with 3 of 3 authors identified.
+- `dabar_croatian_classification_subject`: new community test for metric `FM_R1.3_M_UseCCSAA` (FAIR Metric – R1.3 – Metadata – use of Croatian classification of scientific and artistic areas, fields and branches), per #22. It uses the same two DataCite sources as `dabar_author_orcid_or_mbz`: the harvested OAI-PMH `oai_datacite` record, and DataCite XML from content negotiation on DataCite DOIs. Pass if at least one `datacite:subject` has `subjectScheme="nvzz.hr"` (ignoring case) and a non-empty value; the matching classification values, with their language, are written to the comments. Ordinary keywords without that scheme do not count. Fail if subjects are found but none uses `nvzz.hr`; the comments name the schemes that were used instead. Indeterminate if no DataCite subject values can be retrieved, as the issue specifies. Verified against FULIR records `irb:906` and `irb:33` (pass), the ESRF DataCite DOI `10.15151/ESRF-ES-2303075148`, whose subjects use other schemes (fail), and a Crossref DOI (indeterminate).
+
+### Fixed
+
+- Corrected the version heading of the previous release in this file, `0.5.12` → `0.2.13`, to match `VERSION.txt` and the image tag that release published.
+
+## [0.2.13] - 2026-09-30
 
 ### Bump harvester gem
 0.1.18 which now has OAI-PMH support and issues a specific user agent header 
