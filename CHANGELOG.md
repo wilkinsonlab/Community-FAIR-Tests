@@ -2,6 +2,17 @@
 
 
 
+## [0.2.15] - 2026-11-21
+
+### Added
+
+- `erdera_vp_core_quality`: new test for the ERDERA metric `FM_R1-3_M_VP_CORE` (Quality Control for Virtual Platform Onboarding). Titles and descriptions exist for discovery, so the test checks that they contain words a searcher could use. The title must contain at least 1 *distinctive* word, and the description at least 2 distinctive words that appear in none of the record's titles. A word is distinctive if it is not on the test's generic-word lists: stopwords, record-type nouns (dataset, catalog, registry…), placeholders (test, TBD, lorem ipsum…), words every ERDERA record shares (rare, disease, patients, research…) and promotional/LLM filler (comprehensive, valuable, provides…). Titles are read from `dct:title`, `dc:title` or `schema:name`, and descriptions from `dct:description`, `dc:description` or `schema:description`; one qualifying value of each is enough. The comments list the distinctive words found in each value, so a failing publisher can see why. The resource assessed is the one the GUID identifies. The aim is to reject placeholder metadata such as a description of "a dataset", not to grade writing.
+- Calibration corpus `champion-style/spec/fixtures/erdera_vp_core_calibration.yml` and spec `champion-style/spec/tests/erdera_vp_core_quality_spec.rb`. The corpus holds 86 labelled titles and descriptions (junk / ok / good, including LLM-style filler), written for this purpose rather than taken from the Lean FDP Index, which is what the test quality-controls. The spec requires every junk entry to fail and every useful entry to pass under the test's own scoring code. Calibrating against it replaced the metric's original rule (title ≥ 4 words, description ≥ 200 characters), which failed 10 of 18 useful titles (e.g. "Orphanet") and could not stop long LLM filler. Mark Wilkinson set the description threshold at 2 new words, a stricter bar for discovery.
+
+### Changed
+
+- `erdera_core_vp_metadata` (the L1 test, metric `FM_R1-3_M_VP_L1`) and `erdera_vp_l2_metadata` (L2): no longer look at `ejprd:vpConnection ejprd:VPDiscoverable` at all. Registering with the ERDERA Index is itself the request to be discovered, and the Index injects that flag into every record it ingests, so a publisher's own DCAT record never needs to carry it. Previously both tests failed any record without the flag, and L1 also used it to choose which resources to check. L1 now checks the required and recommended properties on the resource the GUID identifies (the GUID or any URI it resolved to), and is indeterminate if the harvested metadata does not describe that resource. L1 also no longer checks `dcat:contactPoint` twice, and L2's progress message no longer says it is testing for funder information. Bumped both to `Tst-0.0.3`.
+
 ## [0.2.14] - 2026-11-18
 
 ### Added

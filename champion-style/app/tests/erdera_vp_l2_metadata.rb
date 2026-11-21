@@ -1,7 +1,7 @@
 class FAIRTest
   def self.erdera_vp_l2_metadata_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
       testname: 'ERDERA: Minimal VP Metadata for Level 2 Compliance',
       testid: 'erdera_vp_l2_metadata',
       description: "The ERDERA Project has strict requirements for minimal metadata to onboard their Virtual Platform.
@@ -53,12 +53,11 @@ class FAIRTest
       return output.createEvaluationResponse
     end
 
-    output.comments << "INFO: Now testing #{guid} for funder information\n"
+    output.comments << "INFO: Now testing #{guid} for deprecated predicates\n"
     g = metadata.graph
     prefixes = "PREFIX dcat: <http://www.w3.org/ns/dcat#>
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-    PREFIX ejp: <https://w3id.org/ejp-rd/vocabulary#>
     "
 
     query = SPARQL.parse("#{prefixes}
@@ -70,21 +69,6 @@ class FAIRTest
       return output.createEvaluationResponse
     else
       output.comments << "INFO: Didn't see any deprecated predicates.\n"
-    end
-
-    # test discoverability
-    output.comments << "INFO:  Testing for existence of a VPDiscoverable resource within the FDP record.\n"
-    query = SPARQL.parse("#{prefixes}
-      select ?s where {?s ejp:vpConnection ejp:VPDiscoverable }")
-    results = query.execute(g)
-    if results.any?
-      # warn "one"
-      output.comments << "INFO: Found the EJP VPDiscoverable property somewhere in the FDP.\n"
-    else
-      # warn "two"
-      output.score = 'fail'
-      output.comments << "FAILURE: Nothing in the FDP was flagged to be VPDiscoverable.\n"
-      return output.createEvaluationResponse
     end
 
     output.score = 'fail'

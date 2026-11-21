@@ -1,0 +1,119 @@
+# Calibration corpus for ERDERA VP CORE title/description quality.
+# label: junk = should FAIL, ok = minimal but useful (should PASS), good = clearly useful.
+# Written from judgement (Claude, reviewed by Mark Wilkinson, 2026-11-21), not taken
+# from the Lean FDP Index, which is what this test quality-controls. Titles and
+# descriptions exist for DISCOVERY, so "useful" means "contains words a searcher could
+# use"; generic text and LLM-style filler are junk however long they are.
+# Descriptions carry the record's title so "adds nothing beyond the title" can be measured.
+#
+# Used by spec/tests/erdera_vp_core_quality_spec.rb, which requires every junk entry to
+# fail and every ok/good entry to pass under the test's own scoring code. If you change
+# the thresholds or word lists in app/tests/erdera_vp_core_quality.rb, this spec tells
+# you which labelled examples flip.
+#
+# Calibration (2026-11-21), best cutoff for each candidate measure on this corpus:
+#   titles:       words >= 4                  -> 4/24 junk pass, 10/18 useful fail
+#                 distinctive words >= 1      -> 0 junk pass, 0 useful fail   (adopted)
+#   descriptions: characters >= 40 (200 worse) -> 8/28 junk pass (LLM filler is long)
+#                 distinctive words not in the title >= 1 -> 0 / 0
+#                 ... >= 2 adopted by Mark as the stricter discovery bar (relabels 2 items below)
+
+titles:
+  junk:
+    - "Dataset"
+    - "Test"
+    - "test"
+    - "Untitled"
+    - "Data"
+    - "My FDP"
+    - "FAIR Data Point"
+    - "My FAIR Data Point"
+    - "New dataset"
+    - "Test catalog"
+    - "Catalog 1"
+    - "dataset_v2_final"
+    - "Demo FDP"
+    - "Copy of dataset"
+    - "Registry"
+    - "Biobank"
+    - "Rare disease data"
+    - "Rare disease dataset 2024"
+    - "Catalogue"
+    - "Example distribution"
+    - "This is my test catalog"
+    - "A new FAIR data point"
+    - "Data service"
+    - "Patient registry"
+  ok:
+    - "Orphanet"
+    - "BBMRI-ERIC Directory"
+    - "VEP FAIR Data Point"
+    - "ERN-RND Registry"
+    - "EuRR-Bone"
+    - "Treatabolome"
+    - "Cystic fibrosis biobank"
+    - "Duchenne registry Spain"
+    - "Fabry natural history data"
+    - "EATRIS catalogue"
+    - "Solve-RD exomes"
+    - "HPO annotations"
+  good:
+    - "EJP RD Innovation Management Toolbox"
+    - "Spanish Registry of Duchenne Muscular Dystrophy Patients"
+    - "Natural history study of Fabry disease in adults"
+    - "Whole-exome sequences from the Solve-RD unsolved cases cohort"
+    - "BBMRI-ERIC Directory of European biobanks"
+    - "ERN-RND registry of rare neurological diseases"
+
+descriptions:
+  junk:
+    - { title: "Dataset", text: "a dataset" }
+    - { title: "Dataset", text: "Dataset" }
+    - { title: "Test", text: "test" }
+    - { title: "Test", text: "TBD" }
+    - { title: "Test", text: "TODO" }
+    - { title: "Untitled", text: "Description" }
+    - { title: "Untitled", text: "No description" }
+    - { title: "Untitled", text: "N/A" }
+    - { title: "My FDP", text: "This is a dataset." }
+    - { title: "My FDP", text: "This is a test FDP" }
+    - { title: "Catalogue", text: "Catalog of datasets" }
+    - { title: "Catalogue", text: "This catalog contains datasets." }
+    - { title: "Dataset", text: "Metadata about the dataset" }
+    - { title: "FAIR Data Point", text: "FAIR Data Point" }
+    - { title: "FAIR Data Point", text: "This FAIR Data Point contains metadata." }
+    - { title: "FAIR Data Point", text: "This is the FAIR Data Point of our organisation, containing our catalogs and datasets." }
+    - { title: "Test", text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit." }
+    - { title: "Orphanet", text: "Orphanet" }
+    - { title: "ERN-RND Registry", text: "ERN-RND Registry" }
+    - { title: "ERN-RND Registry", text: "The ERN-RND registry." }
+    - { title: "Cystic fibrosis biobank", text: "A cystic fibrosis biobank" }
+    - { title: "Rare disease data", text: "Rare disease data for research." }
+    - { title: "Rare disease data", text: "This dataset contains rare disease data that is available for research purposes." }
+    # Labelled ok at first; relabelled junk when Mark set the description threshold to 2 new words
+    # (2026-11-21). Each adds at most one searchable word beyond its title (BBMRI only via the
+    # typo "Directoy"; spelled correctly it adds none), which is too little for discovery.
+    - { title: "BBMRI-ERIC Directory", text: "FDP exposing metadata of the BBMRI Directoy" }
+    - { title: "Fabry natural history data", text: "Natural history observations of Fabry disease patients" }
+    # LLM-style fluent filler: long, grammatical, and empty
+    - { title: "Dataset", text: "This dataset provides valuable data for researchers." }
+    - { title: "Dataset", text: "A comprehensive resource providing valuable insights for rare disease research and patient care." }
+    - { title: "Catalogue", text: "This catalogue offers a comprehensive collection of high-quality datasets that can be used by researchers, clinicians and other stakeholders to advance research in the field of rare diseases and improve outcomes." }
+    - { title: "Data service", text: "This data service provides access to data and metadata. It allows users to search, browse and retrieve information about the available resources in a FAIR way." }
+    - { title: "Patient registry", text: "A patient registry collecting data about patients with rare diseases for research purposes." }
+  ok:
+    - { title: "VEP FAIR Data Point", text: "FAIR Data Point for the Ensembl VEP Beacon" }
+    - { title: "Duchenne registry Spain", text: "Registry of Duchenne muscular dystrophy patients in Spain" }
+    - { title: "Cystic fibrosis biobank", text: "Serum and DNA samples from cystic fibrosis patients" }
+    - { title: "EATRIS catalogue", text: "Catalogue of EATRIS translational research infrastructure services" }
+    - { title: "Solve-RD exomes", text: "Exome sequences of unsolved rare disease cases" }
+    - { title: "HPO annotations", text: "Human Phenotype Ontology annotations of rare diseases" }
+    - { title: "Orphanet", text: "The portal for rare diseases and orphan drugs" }
+    - { title: "ERN-RND Registry", text: "Registry of the European Reference Network for rare neurological diseases" }
+    - { title: "Treatabolome", text: "Gene and variant-level treatment recommendations for rare diseases" }
+  good:
+    - { title: "VEP FAIR Data Point", text: "This FAIR Data Point acts as an intermediary layer between the Ensembl VEP Beacon and the EJP-RD's Virtual Platform." }
+    - { title: "EJP RD Innovation Management Toolbox", text: "The Innovation Management Toolbox (IMT) is a reference library of resources in rare disease translational medicine, designed to help investigators move discoveries towards patients." }
+    - { title: "Spanish Registry of Duchenne Muscular Dystrophy Patients", text: "National registry of genetically confirmed Duchenne and Becker muscular dystrophy patients in Spain, recording clinical phenotype, mutation and treatment history." }
+    - { title: "Natural history study of Fabry disease in adults", text: "Longitudinal clinical measurements (renal, cardiac, neurological) from adult Fabry disease patients followed for up to ten years, collected in five European centres." }
+    - { title: "BBMRI-ERIC Directory of European biobanks", text: "The BBMRI-ERIC Directory lists biobanks and sample collections across Europe, with information on sample types, diagnoses and access conditions." }

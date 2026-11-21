@@ -1,13 +1,14 @@
 class FAIRTest
   def self.erdera_core_vp_metadata_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
       testname: 'ERDERA: Minimal VP Metadata for Level 1 Compliance',
       testid: 'erdera_core_vp_metadata',
       description: "The ERDERA Project has strict requirements for minimal metadata to onboard their Virtual Platform.
-                            These include: Migration away from deprecated EJP purl properties to the w3id equivalents.  Presence of the VPDiscoverable prpoperty. Properties: dcat:theme dcat:contactPoint dct:description
+                            These include: Migration away from deprecated EJP purl properties to the w3id equivalents.
+                            Properties, on the resource the GUID identifies: dcat:theme dcat:contactPoint dct:description
                             dcat:keyword dct:language dct:license
-                            dct:publisher dct:title dcat:contactPoint dcat:landingPage.
+                            dct:publisher dct:title dcat:landingPage.
                         It does not test the substructure of the dct:publisher, but it must be a foaf:Agent with a foaf:name.",
       metric: 'https://w3id.org/fair-metrics/erdera/FM_R1-3_M_VP_L1',
       indicators: 'https://fairsharing.org/FAIRsharing.87d197',
@@ -60,7 +61,6 @@ class FAIRTest
     prefixes = "PREFIX dcat: <http://www.w3.org/ns/dcat#>
     PREFIX dct: <http://purl.org/dc/terms/>
     PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-    PREFIX ejp: <https://w3id.org/ejp-rd/vocabulary#>
     "
 
     query = SPARQL.parse("#{prefixes}
@@ -74,22 +74,18 @@ class FAIRTest
       output.comments << "INFO: Didn't see any deprecated predicates.\n"
     end
 
-    # test discoverability
-    output.comments << "INFO:  Testing for existence of a VPDiscoverable resource within the FDP record.\n"
-    query = SPARQL.parse("#{prefixes}
-      select ?s where {?s ejp:vpConnection ejp:VPDiscoverable }")
-    results = query.execute(g)
-    if results.any?
-      # warn "one"
-      output.comments << "INFO: Found the EJP VPDiscoverable property somewhere in the FDP.\n"
-    else
-      # warn "two"
-      output.score = 'fail'
-      output.comments << "FAILURE: Nothing in the FDP was flagged to be VPDiscoverable.\n"
+    # The resource assessed is the one the GUID identifies (the GUID itself, or any URI it
+    # resolved to), as the Index assesses each registered resource on its own.
+    subjects = erdera_core_vp_metadata_subjects(metadata, guid)
+    described = subjects.select { |s| g.has_subject?(RDF::URI(s)) }
+    if described.empty?
+      output.score = 'indeterminate'
+      output.comments << "INDETERMINATE: The harvested metadata does not describe #{subjects.join(' or ')}, " \
+                         "so the resource's own metadata cannot be assessed.\n"
       return output.createEvaluationResponse
     end
-
-    discoverables = results.map { |r| r[:s].to_s }
+    output.comments << "INFO: Assessing the metadata of #{described.join(', ')}\n"
+    resources = described
 
     requiredpredicates = %w[dcat:theme dcat:contactPoint dct:description
                             dcat:keyword dct:language dct:license
@@ -99,37 +95,32 @@ class FAIRTest
 
     optionalpredicates = %w[foaf:logo dct:issued dct:modified]
 
-    discoverables.each do |d|
+    resources.each do |d|
       optionalpredicates.each do |p|
-        # warn "three"
-
-        output.comments << "INFO:  Testing Discoverable #{d} for optional property #{p}.\n"
+        output.comments << "INFO:  Testing #{d} for optional property #{p}.\n"
         query = SPARQL.parse("#{prefixes}
           SELECT ?o WHERE { <#{d}> #{p} ?o }")
         results = query.execute(g)
         output.comments << if results.any?
-                             "INFO: Found the EJP recommended metadata element #{p} on the Discoverable entity #{d}'\n"
+                             "INFO: Found the EJP recommended metadata element #{p} on #{d}\n"
                            else
-                             "WARN: the recommended metadata element #{p} could not be found on the Discoverable entity #{d}\n"
+                             "WARN: the recommended metadata element #{p} could not be found on #{d}\n"
                            end
       end
     end
 
     failflag = false
-    # warn "four"
 
-    discoverables.each do |d|
-      requiredpredicates.each do |p|
-        output.comments << "INFO:  Testing Discoverable #{d} for mandatory property #{p}.\n"
+    resources.each do |d|
+      requiredpredicates.uniq.each do |p|
+        output.comments << "INFO:  Testing #{d} for mandatory property #{p}.\n"
         query = SPARQL.parse("#{prefixes}
           SELECT ?o WHERE { <#{d}> #{p} ?o }")
         results = query.execute(g)
         if results.any?
-          # warn "five"
-          output.comments << "INFO: Found the EJP mandatory metadata element #{p} on the Discoverable entity #{d}'\n"
+          output.comments << "INFO: Found the EJP mandatory metadata element #{p} on #{d}\n"
         else
-          # warn "six"
-          output.comments << "WARN: the mandatory metadata element #{p} could not be found on the Discoverable entity #{d}\n"
+          output.comments << "WARN: the mandatory metadata element #{p} could not be found on #{d}\n"
           if p =~ /landingPage/
             output.comments << "WARN: If you are using the Reference FDP, or Sextans Suite, the #{p} property is labelled 'About Page' in the FDP metadata editing pages.\n"
           end
@@ -145,6 +136,11 @@ class FAIRTest
       output.comments << "SUCCESS: Found all of the EJP reqired metadata elements\n"
     end
     output.createEvaluationResponse
+  end
+
+  # The resource the GUID identifies: the GUID itself and any URI it resolved to.
+  def self.erdera_core_vp_metadata_subjects(metadata, guid)
+    ([guid] + metadata.finalURI.to_a.map(&:to_s)).map(&:strip).reject(&:empty?).uniq
   end
 
   def self.erdera_core_vp_metadata_api
