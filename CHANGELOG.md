@@ -2,6 +2,12 @@
 
 
 
+## [0.2.16] - 2026-11-23
+
+### Changed
+
+- `erdera_vp_l2_metadata` (L2, metric `FM_R1-3_M_VP_L2`): a resource that is not typed `dcat:DataService` now **fails**, because Level 2 applies only to Data Services (Mark Wilkinson's decision). Previously the test passed any non-DataService with "This test should not be run on this class type. You will pass." The type check and the endpoint/landing-page checks now look at the resource the GUID identifies (the GUID or any URI it resolved to), the same scope as L1 and CORE; previously any DataService, endpoint or landing page anywhere in the harvested graph counted. Indeterminate if the harvested metadata does not describe that resource. Bumped to `Tst-0.0.4`.
+
 ## [0.2.15] - 2026-11-21
 
 ### Added
