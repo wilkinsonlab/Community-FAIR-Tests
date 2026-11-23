@@ -2,6 +2,20 @@
 
 
 
+## [0.2.20] - 2026-11-23
+
+### Changed
+
+- `erdera_core_vp_metadata` (L1): `dcat:keyword` is **temporarily** not enforced -
+  commented out of `requiredpredicates`, not moved to recommended like `dcat:landingPage`,
+  since it genuinely should become required (unlike `landingPage`) once existing records
+  are patched. Confirmed live (germplasm Index, Lean-FDP-Index QC integration testing)
+  that this field was never actually required by the SHACL profile at initial
+  registration, so enforcing it now would be the same kind of rug-pull `landingPage` was -
+  Mark is patching existing records by hand (his own words: "my fault, my punishment!")
+  rather than asking publishers to. Re-add `'dcat:keyword'` to the required list once
+  that's done. Bumped to `Tst-0.0.5`.
+
 ## [0.2.19] - 2026-11-23
 
 ### Changed

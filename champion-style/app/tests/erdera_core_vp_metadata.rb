@@ -1,7 +1,7 @@
 class FAIRTest
   def self.erdera_core_vp_metadata_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.4',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.5',
       testname: 'ERDERA: Minimal VP Metadata for Level 1 Compliance',
       testid: 'erdera_core_vp_metadata',
       description: "The ERDERA Project has strict requirements for minimal metadata to onboard their Virtual Platform.
@@ -87,8 +87,14 @@ class FAIRTest
     output.comments << "INFO: Assessing the metadata of #{described.join(', ')}\n"
     resources = described
 
+    # dcat:keyword temporarily commented out (Mark Wilkinson, 2026-11-23): it SHOULD be
+    # required (unlike dcat:landingPage above), but wasn't actually required by the
+    # SHACL profile at initial registration time - that was an oversight in that SHACL,
+    # not a publisher error, so enforcing it now would still be a rug-pull. Mark is
+    # patching existing records by hand to add it; re-add 'dcat:keyword' to the list
+    # below once that's done, then this requirement is real again.
     requiredpredicates = %w[dcat:theme dcat:contactPoint dct:description
-                            dcat:keyword dct:language dct:license
+                            dct:language dct:license
                             dct:publisher dct:title dcat:contactPoint]
 
     _specialpredicates = %w[dct:isPartOf]
