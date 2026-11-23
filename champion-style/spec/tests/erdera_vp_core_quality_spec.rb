@@ -42,4 +42,21 @@ RSpec.describe 'erdera_vp_core_quality scoring' do
   it 'splits hyphenated names and drops numbers and version tags' do
     expect(FAIRTest.erdera_vp_core_tokens('BBMRI-ERIC dataset_v2_final 2024')).to eq(%w[bbmri eric dataset final])
   end
+
+  # Regression test: erdera_vp_core_literals is the only method the calibration corpus
+  # above never exercises (it only drives the pure text-scoring helpers) - a hard syntax
+  # error here (`predicates` accidentally split across two lines, raising NameError on
+  # every call) still passed all 88 corpus examples and only surfaced live, as a bare 500
+  # from erdera_vp_core_quality itself, confirmed 2026-11-23.
+  it 'extracts literal values for the given subjects and predicates from a real graph' do
+    graph = RDF::Graph.new
+    subject = RDF::URI('https://example.org/dataset/1')
+    graph << [subject, RDF::URI('http://purl.org/dc/terms/title'), RDF::Literal('A real dataset title')]
+    graph << [subject, RDF::URI('http://purl.org/dc/terms/description'), RDF::Literal('Unrelated predicate')]
+
+    result = FAIRTest.erdera_vp_core_literals(graph, [subject.to_s], FAIRTest::ERDERA_VP_CORE_TITLE_PREDICATES)
+
+    expect(result).to eq([{ value: 'A real dataset title', lang: nil,
+                             predicate: 'http://purl.org/dc/terms/title' }])
+  end
 end

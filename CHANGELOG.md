@@ -2,6 +2,18 @@
 
 
 
+## [0.2.18] - 2026-11-23
+
+### Fixed
+
+- `erdera_vp_core_quality`: fixed a hard crash (`NameError: undefined local variable or method
+  'pred'`) on every real invocation, surfaced live as a bare `500 Internal Server Error` from
+  the test's own assess endpoint. `predicate_uris = predicates.map { |p| RDF::URI(p) }` had been
+  accidentally split across two lines (`pred` / `icates.map { ... }`) - valid-looking but
+  undefined Ruby. The calibration corpus (88 examples) never caught this because it only drives
+  the pure text-scoring helpers, never `erdera_vp_core_literals` itself; added a direct
+  regression test for that method against a real `RDF::Graph`.
+
 ## [0.2.17] - 2026-11-23
 
 ### Changed

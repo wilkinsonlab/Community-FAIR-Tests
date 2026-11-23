@@ -178,8 +178,7 @@ class FAIRTest
   #   one of +predicates+ on one of +subjects+
   def self.erdera_vp_core_literals(graph, subjects, predicates)
     subject_uris = subjects.map { |s| RDF::URI(s) }
-    predicate_uris = pred
-    icates.map { |p| RDF::URI(p) }
+    predicate_uris = predicates.map { |p| RDF::URI(p) }
     found = []
     graph.each_statement do |st|
       next unless subject_uris.include?(st.subject) && predicate_uris.include?(st.predicate)
