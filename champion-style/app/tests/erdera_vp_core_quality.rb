@@ -17,7 +17,7 @@ class FAIRTest
                     dc:description or schema:description. If there are several values (e.g. one per language), one
                     qualifying title and one qualifying description are enough.",
       metric: 'https://w3id.org/fair-metrics/erdera/FM_R1-3_M_VP_CORE',
-      indicators: 'https://fairsharing.org/FAIRsharing.87d197',
+      indicators: 'https://w3id.org/fair-metrics/erdera/FM_R1-3_M_VP_CORE',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
       keywords: ['FAIR Assessment', 'FAIR Principles', 'FAIR', 'R1.3', 'metadata', 'ERDERA',

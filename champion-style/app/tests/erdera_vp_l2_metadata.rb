@@ -10,7 +10,7 @@ class FAIRTest
                             The resource the GUID identifies must be typed dcat:DataService; any other resource fails.
                   ",
       metric: 'https://w3id.org/fair-metrics/erdera/FM_R1-3_M_VP_L2',
-      indicators: 'https://fairsharing.org/FAIRsharing.87d197',
+      indicators: 'https://w3id.org/fair-metrics/erdera/FM_R1-3_M_VP_L2',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
       keywords: ['FAIR Assessment', 'FAIR Principles', 'FAIR', 'R1.3', 'identifier', 'metadata', 'ERDERA',

@@ -11,7 +11,7 @@ class FAIRTest
                             dct:publisher dct:title dcat:landingPage.
                         It does not test the substructure of the dct:publisher, but it must be a foaf:Agent with a foaf:name.",
       metric: 'https://w3id.org/fair-metrics/erdera/FM_R1-3_M_VP_L1',
-      indicators: 'https://fairsharing.org/FAIRsharing.87d197',
+      indicators: 'https://w3id.org/fair-metrics/erdera/FM_R1-3_M_VP_L1',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
       keywords: ['FAIR Assessment', 'FAIR Principles', 'FAIR', 'R1.3', 'identifier', 'metadata', 'ERDERA',

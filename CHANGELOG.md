@@ -2,6 +2,19 @@
 
 
 
+## [0.2.17] - 2026-11-23
+
+### Changed
+
+- `erdera_core_vp_metadata`, `erdera_vp_l2_metadata`, `erdera_vp_core_quality`: `indicators:` now
+  points at each test's own metric RDF record (`FM_R1-3_M_VP_L1`/`_L2`/`_CORE` at
+  `https://w3id.org/fair-metrics/erdera/...`, same value already correctly set in `metric:`),
+  instead of the ERDERA FAIRsharing record. A Test's `indicators:` should point to the canonical
+  RDF describing its own metric, not a third-party record describing the broader FAIR dimension -
+  and FAIRsharing's own RDF for a record is not canonical in any case, so it was the wrong kind of
+  reference even before the new FAIRsharing record (`FAIRsharing.87d197`) was accepted, which is
+  still pending FAIRsharing's own curators.
+
 ## [0.2.16] - 2026-11-23
 
 ### Changed
