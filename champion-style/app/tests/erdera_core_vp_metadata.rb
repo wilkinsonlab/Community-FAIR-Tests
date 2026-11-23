@@ -1,7 +1,7 @@
 class FAIRTest
   def self.erdera_core_vp_metadata_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.3',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.4',
       testname: 'ERDERA: Minimal VP Metadata for Level 1 Compliance',
       testid: 'erdera_core_vp_metadata',
       description: "The ERDERA Project has strict requirements for minimal metadata to onboard their Virtual Platform.
@@ -89,11 +89,16 @@ class FAIRTest
 
     requiredpredicates = %w[dcat:theme dcat:contactPoint dct:description
                             dcat:keyword dct:language dct:license
-                            dct:publisher dct:title dcat:contactPoint dcat:landingPage]
+                            dct:publisher dct:title dcat:contactPoint]
 
     _specialpredicates = %w[dct:isPartOf]
 
-    optionalpredicates = %w[foaf:logo dct:issued dct:modified]
+    # dcat:landingPage was never actually required by the SHACL profile partners were
+    # given to build against - demanding it retroactively here would be unfair to
+    # publishers who built in good faith against that profile. Recommended, not
+    # mandatory, for L1 (Mark Wilkinson's decision, 2026-11-23). Still mandatory for L2
+    # DataServices that have no dcat:endpointURL - see erdera_vp_l2_metadata.
+    optionalpredicates = %w[foaf:logo dct:issued dct:modified dcat:landingPage]
 
     resources.each do |d|
       optionalpredicates.each do |p|
@@ -101,11 +106,15 @@ class FAIRTest
         query = SPARQL.parse("#{prefixes}
           SELECT ?o WHERE { <#{d}> #{p} ?o }")
         results = query.execute(g)
-        output.comments << if results.any?
-                             "INFO: Found the EJP recommended metadata element #{p} on #{d}\n"
-                           else
-                             "WARN: the recommended metadata element #{p} could not be found on #{d}\n"
-                           end
+        if results.any?
+          output.comments << "INFO: Found the EJP recommended metadata element #{p} on #{d}\n"
+        else
+          output.comments << "WARN: the recommended metadata element #{p} could not be found on #{d}\n"
+          if p =~ /landingPage/
+            output.comments << "WARN: If you are using the Reference FDP, or Sextans Suite, the #{p} " \
+                               "property is labelled 'About Page' in the FDP metadata editing pages.\n"
+          end
+        end
       end
     end
 
@@ -121,9 +130,6 @@ class FAIRTest
           output.comments << "INFO: Found the EJP mandatory metadata element #{p} on #{d}\n"
         else
           output.comments << "WARN: the mandatory metadata element #{p} could not be found on #{d}\n"
-          if p =~ /landingPage/
-            output.comments << "WARN: If you are using the Reference FDP, or Sextans Suite, the #{p} property is labelled 'About Page' in the FDP metadata editing pages.\n"
-          end
           failflag = true
         end
       end

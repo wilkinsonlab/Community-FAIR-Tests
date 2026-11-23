@@ -2,6 +2,22 @@
 
 
 
+## [0.2.19] - 2026-11-23
+
+### Changed
+
+- `erdera_core_vp_metadata` (L1): `dcat:landingPage` is no longer a mandatory property -
+  moved to the optional/recommended list (still noted with an INFO/WARN comment, including
+  the existing Reference-FDP/Sextans "About Page" guidance, just no longer fails the test
+  on its own). It was never actually required by the SHACL profile partners were given to
+  build against, so failing records retroactively for it would be unfair to publishers who
+  built in good faith against that profile (confirmed live: germplasm's own resources,
+  built against that profile, were failing almost entirely on this one field). `landingPage`
+  remains a real, enforced requirement for L2 DataServices that have no `dcat:endpointURL` -
+  `erdera_vp_l2_metadata` already implements exactly that (`endpointURL` +
+  `endpointDescription`, else `landingPage`, else fail) and did not need a code change.
+  Bumped to `Tst-0.0.4`.
+
 ## [0.2.18] - 2026-11-23
 
 ### Fixed
