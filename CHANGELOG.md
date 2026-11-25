@@ -2,6 +2,14 @@
 
 
 
+## [0.2.21] - 2026-11-25
+
+### Added
+
+- `dabar_grant_identification`: new community test for the DABAR metric `FM_R1.2_M_Grant_id` (Grants identification), per #19. It reads DataCite `fundingReference`s from the `oai_datacite` record that the harvester reaches through a repository's OAI-PMH endpoint (DABAR and FULIR signpost it with `<link rel="describedby">`), and, for DataCite DOIs, from DataCite XML via content negotiation on the DOI. Pass if at least one `fundingReference` gives both a non-empty `funderName` and a non-empty `awardNumber` (`awardTitle` is reported but not required). Fail if funding information is present but no reference gives both. Indeterminate if no funding information (funder name, award number or award title) can be found, as the issue specifies. Verified live: FULIR and DABAR `irb:906` and the ESRF DataCite DOI pass; FULIR `irb:872` passes on its one complete reference out of two; FULIR `irb:5` (no funding) and a Crossref DOI are indeterminate.
+- `dabar_institutional_identification`: new community test for the DABAR metric `FM_R1.2_M_Inst_id` (Institutional identification), per #20. Using the same two DataCite sources, it passes if at least one `creator` has, within its own creator element, an `affiliation` with a non-empty `affiliationIdentifier` (any scheme; `affiliationIdentifierScheme` is reported when given). Affiliations given only as text do not count, as the issue specifies. Fail if creators are found but none has such an affiliation; indeterminate if no creators can be found. Each creator's affiliations, with name, identifier and scheme, are written to the comments. Note: in 277 FULIR records and 100 DABAR records sampled on 2026-11-25, no creator affiliation carried an `affiliationIdentifier`, so every real record tested so far fails; the issue's own example (an affiliation with `affiliationIdentifier="69715301002"`) passes.
+- Both tests point `indicators:` at their own metric RDF, per the convention adopted in 0.2.17. Mark Wilkinson identified the correct metrics (DABAR's issues cited identifiers that don't resolve) and chose dedicated tests over reusing the similar ESRF funding/affiliation metrics, because these metrics are stricter.
+
 ## [0.2.20] - 2026-11-23
 
 ### Changed
