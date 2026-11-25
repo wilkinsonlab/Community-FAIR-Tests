@@ -1,8 +1,8 @@
 class FAIRTest
   def self.dabar_croatian_classification_subject_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.1',
-      testname: 'Croatian classification of scientific and artistic areas (nvzz.hr) used in DataCite subjects',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testname: 'DABAR: Croatian classification of scientific and artistic areas (nvzz.hr) used in DataCite subjects',
       testid: 'dabar_croatian_classification_subject',
       description: 'Retrieves the DataCite metadata for a record (oai_datacite via the repository OAI-PMH
                     endpoint, and/or DataCite XML for a DataCite DOI) and checks whether at least one
@@ -13,7 +13,7 @@ class FAIRTest
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
-      keywords: ['FAIR Assessment', 'FAIR Principles', 'DataCite', 'subject classification', 'nvzz.hr'],
+      keywords: ['FAIR Assessment', 'FAIR Principles', 'DataCite', 'subject classification', 'nvzz.hr', 'DABAR'],
       themes: ['http://edamontology.org/topic_4012'],
       organization: 'OSTrails Project',
       org_url: 'https://ostrails.eu/',

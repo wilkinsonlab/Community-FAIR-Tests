@@ -2,6 +2,12 @@
 
 
 
+## [0.2.22] - 2026-11-25
+
+### Changed
+
+- All four DABAR tests (`dabar_author_orcid_or_mbz`, `dabar_croatian_classification_subject`, `dabar_grant_identification`, `dabar_institutional_identification`): titles now start with "DABAR: ", matching the "ERDERA: " convention, and `'DABAR'` is added to their keywords. FAIR Champion's test filter only searches titles and descriptions, not keywords, so `?keyword=DABAR` previously found none of them and "Croatian" found only two. It now finds exactly these four. Test ids and logic are unchanged. Bumped each to `Tst-0.0.2`. Supersedes 0.2.21, which was never deployed.
+
 ## [0.2.21] - 2026-11-25
 
 ### Added

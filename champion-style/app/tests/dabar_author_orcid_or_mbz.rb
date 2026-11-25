@@ -1,8 +1,8 @@
 class FAIRTest
   def self.dabar_author_orcid_or_mbz_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.1',
-      testname: 'Authors identified by ORCID or MBZ in DataCite metadata',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testname: 'DABAR: Authors identified by ORCID or MBZ in DataCite metadata',
       testid: 'dabar_author_orcid_or_mbz',
       description: 'Retrieves the DataCite metadata for a record (oai_datacite via the repository OAI-PMH
                     endpoint, and/or DataCite XML for a DataCite DOI) and checks whether at least one
@@ -13,7 +13,7 @@ class FAIRTest
       indicators: 'https://placeholder.org',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
-      keywords: ['FAIR Assessment', 'FAIR Principles', 'ORCID', 'MBZ', 'DataCite'],
+      keywords: ['FAIR Assessment', 'FAIR Principles', 'ORCID', 'MBZ', 'DataCite', 'DABAR'],
       themes: ['http://edamontology.org/topic_4012'],
       organization: 'OSTrails Project',
       org_url: 'https://ostrails.eu/',

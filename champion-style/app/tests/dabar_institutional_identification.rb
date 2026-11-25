@@ -1,8 +1,8 @@
 class FAIRTest
   def self.dabar_institutional_identification_meta
     {
-      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.1',
-      testname: 'Creator affiliation identified by an organisation identifier in DataCite metadata',
+      testversion: HARVESTER_VERSION + ':' + 'Tst-0.0.2',
+      testname: 'DABAR: Creator affiliation identified by an organisation identifier in DataCite metadata',
       testid: 'dabar_institutional_identification',
       description: 'Retrieves the DataCite metadata for a record (oai_datacite via the repository OAI-PMH
                     endpoint, e.g. from a signposted describedby link, and/or DataCite XML for a DataCite DOI)
@@ -14,7 +14,7 @@ class FAIRTest
       indicators: 'https://ostrails.github.io/assessment-component-metadata-records/metric/FM_R1.2_M_Inst_id.ttl',
       type: 'http://edamontology.org/operation_2428',
       license: 'https://creativecommons.org/publicdomain/zero/1.0/',
-      keywords: ['FAIR Assessment', 'FAIR Principles', 'affiliation', 'organisation identifier', 'DataCite'],
+      keywords: ['FAIR Assessment', 'FAIR Principles', 'affiliation', 'organisation identifier', 'DataCite', 'DABAR'],
       themes: ['http://edamontology.org/topic_4012'],
       organization: 'OSTrails Project',
       org_url: 'https://ostrails.eu/',
